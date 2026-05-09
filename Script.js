@@ -26,7 +26,7 @@
     };
   }
   function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(1,0,canvas.width,canvas.height);
     for(var i=0;i<particles.length;i++){
       var p=particles[i];
       ctx.save();
