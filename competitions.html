@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Competitions — CSA</title>
+<link rel="icon" type="image/png" href="csa-logo.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="17" cy="17" r="17" fill="#2563eb" fill-opacity=".15"/>
+      <circle cx="17" cy="17" r="16.5" stroke="#2563eb" stroke-opacity=".4"/>
+      <polygon points="17,8 28,14 17,20 6,14" fill="#3b82f6"/>
+      <line x1="17" y1="20" x2="17" y2="26" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="12" y1="26" x2="22" y2="26" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="28" y1="14" x2="28" y2="20" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="28" cy="21" r="1.5" fill="#60a5fa"/>
+    </svg>
+    <span class="nav-logo-text">CS<em>A</em></span>
+  </a>
+  <button class="nav-toggle" id="menuToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="competitions.html" class="active">Competitions</a></li>
+    <li><a href="submit.html">Submit Work</a></li>
+    <li><a href="apply.html">Join the Team</a></li>
+    <li><a href="#register" class="btn-primary" style="padding:8px 20px;font-size:.88rem;border-radius:6px">Register</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="section-label">Programs &amp; Competitions</div>
+    <h1 class="hero-title" style="font-size:clamp(2.2rem,5vw,3.8rem)">All <em>Competitions</em></h1>
+    <p class="hero-sub" style="margin-bottom:0">Compete, collaborate, and grow across disciplines designed to challenge and inspire Canada's brightest students.</p>
+  </div>
+</div>
+
+<!-- COMPETITIONS -->
+<section style="background:var(--bg)">
+  <div class="section-label">Open &amp; Upcoming</div>
+  <h2 class="section-title">Current Events</h2>
+  <p class="section-sub">Register now for open competitions or keep an eye on what's coming next.</p>
+
+  <div class="events-grid">
+    <div class="event-card">
+      <div class="event-icon">🚀</div>
+      <h3>Entrepreneurship Challenge</h3>
+      <p>Pitch ideas, build business plans, and compete in startup-style challenges with real mentorship from industry professionals.</p>
+      <div class="event-meta">
+        <span class="event-tag open">Open</span>
+        <span class="event-tag" style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);color:#60a5fa">Online</span>
+      </div>
+      <a href="#register" class="btn-sm">Register — $20</a>
+    </div>
+    <div class="event-card">
+      <div class="event-icon">📊</div>
+      <h3>Business Case Competition</h3>
+      <p>Case competitions, financial analysis, and strategy challenges to sharpen your business acumen and analytical thinking.</p>
+      <div class="event-meta">
+        <span class="event-tag open">Open</span>
+        <span class="event-tag" style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);color:#60a5fa">Online</span>
+      </div>
+      <a href="#register" class="btn-sm">Register — $20</a>
+    </div>
+    <div class="event-card">
+      <div class="event-icon">🔬</div>
+      <h3>Science Showcase</h3>
+      <p>Research presentations, experiment showcases, and STEM-focused problem-solving events for science-minded students.</p>
+      <div class="event-meta">
+        <span class="event-tag coming">Coming Soon</span>
+        <span class="event-tag" style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);color:#60a5fa">Online</span>
+      </div>
+      <a href="#register" class="btn-sm" style="background:var(--bg3);color:var(--grey)">Notify Me</a>
+    </div>
+    <div class="event-card">
+      <div class="event-icon">✍️</div>
+      <h3>English Writing Competition</h3>
+      <p>Essay competitions, public speaking rounds, and creative writing showcases for every voice and writing style.</p>
+      <div class="event-meta">
+        <span class="event-tag open">Open</span>
+        <span class="event-tag" style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);color:#60a5fa">Online</span>
+      </div>
+      <a href="#register" class="btn-sm">Register — $20</a>
+    </div>
+    <div class="event-card">
+      <div class="event-icon">🧮</div>
+      <h3>Mathematics Challenge</h3>
+      <p>Problem sets, speed rounds, and collaborative math challenges across all skill levels — from algebra to calculus.</p>
+      <div class="event-meta">
+        <span class="event-tag coming">Coming Soon</span>
+        <span class="event-tag" style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);color:#60a5fa">Online</span>
+      </div>
+      <a href="#register" class="btn-sm" style="background:var(--bg3);color:var(--grey)">Notify Me</a>
+    </div>
+    <div class="event-card">
+      <div class="event-icon">🌍</div>
+      <h3>More Coming</h3>
+      <p>New disciplines added every semester. Stay tuned for announcements on future events and competitions.</p>
+      <div class="event-meta">
+        <span class="event-tag coming">Future</span>
+      </div>
+      <a href="https://www.instagram.com/csa.official2026" target="_blank" class="btn-sm" style="background:var(--bg3);color:var(--grey)">Follow for Updates</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="background:var(--bg2);border-top:1px solid var(--border)">
+  <div class="section-label">Process</div>
+  <h2 class="section-title">How It Works</h2>
+  <p class="section-sub">From registration to results — here's what to expect at every CSA competition.</p>
+  <div class="info-grid" style="margin-top:3rem">
+    <div class="info-card">
+      <div class="info-icon">1️⃣</div>
+      <h3>Register</h3>
+      <p>Fill out the registration form and pay the $20 participation fee. You'll receive a confirmation email with all competition details.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">2️⃣</div>
+      <h3>Prepare</h3>
+      <p>Use our guidelines and resources to prepare your submission or presentation. Our team is available for questions along the way.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">3️⃣</div>
+      <h3>Submit</h3>
+      <p>Upload your work through our <a href="submit.html" style="color:var(--blue-light)">submission portal</a> before the deadline. Late submissions are not accepted.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">4️⃣</div>
+      <h3>Results &amp; Prizes</h3>
+      <p>Judges review all entries and winners are announced. All participants receive an official certificate. Top performers win cash prizes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PERKS -->
+<section style="background:var(--bg)">
+  <div class="section-label">Why Compete?</div>
+  <h2 class="section-title">What You Get</h2>
+  <p class="section-sub">Every CSA competition is designed to reward your effort and build your future.</p>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-num">🏆</div>
+      <div class="stat-label">Cash Prizes for Top Performers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">📜</div>
+      <div class="stat-label">Certificate for Every Participant</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">🧑‍🏫</div>
+      <div class="stat-label">Real Feedback from Judges</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">🇨🇦</div>
+      <div class="stat-label">National Recognition</div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section id="register" style="background:var(--bg2);border-top:1px solid var(--border)">
+  <div class="section-label">Join the Competition</div>
+  <h2 class="section-title">Register for an Event</h2>
+  <p class="section-sub">Sign up for a CSA competition and take the next step in your academic journey.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:3rem">
+    <div>
+      <h3 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--white);margin-bottom:1rem">Why compete with CSA?</h3>
+      <p style="color:var(--grey);font-size:.95rem;line-height:1.75;margin-bottom:1.5rem">Our events are built to challenge you, connect you with peers across Canada, and build skills that go beyond the classroom.</p>
+      <ul class="register-perks" style="list-style:none;display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem">
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:.92rem;color:var(--grey)"><span style="color:var(--blue-light);font-weight:700;flex-shrink:0">✓</span>National-level competition open to all Canadian students</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:.92rem;color:var(--grey)"><span style="color:var(--blue-light);font-weight:700;flex-shrink:0">✓</span>Official certificate of participation for every competitor</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:.92rem;color:var(--grey)"><span style="color:var(--blue-light);font-weight:700;flex-shrink:0">✓</span>Cash prizes and recognition for top performers</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:.92rem;color:var(--grey)"><span style="color:var(--blue-light);font-weight:700;flex-shrink:0">✓</span>Fully online — compete from anywhere in Canada</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:.92rem;color:var(--grey)"><span style="color:var(--blue-light);font-weight:700;flex-shrink:0">✓</span>Only $20 participation fee per event</li>
+      </ul>
+      <p style="font-size:.88rem;color:var(--grey2)">Questions? Email <a href="mailto:canadianscholarsassociation@gmail.com" style="color:var(--blue-light);text-decoration:none">canadianscholarsassociation@gmail.com</a></p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSezgI7RvaXUgu0DiFkP8xC-hHOiug3hsDmbsw-AMwzcWTuk8Q/viewform?usp=header" target="_blank" class="btn-primary" style="margin-top:1rem">
+        Open Registration Form
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+    <div style="padding:0;overflow:hidden;background:transparent;border:none">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSezgI7RvaXUgu0DiFkP8xC-hHOiug3hsDmbsw-AMwzcWTuk8Q/viewform?embedded=true&usp=header"
+        width="100%" height="820" frameborder="0" marginheight="0" marginwidth="0"
+        style="border-radius:16px;border:1px solid var(--border);display:block;color-scheme:normal"
+        loading="lazy">Loading…</iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+          <circle cx="17" cy="17" r="17" fill="#2563eb" fill-opacity=".15"/>
+          <circle cx="17" cy="17" r="16.5" stroke="#2563eb" stroke-opacity=".4"/>
+          <polygon points="17,8 28,14 17,20 6,14" fill="#3b82f6"/>
+          <line x1="17" y1="20" x2="17" y2="26" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round"/>
+          <line x1="12" y1="26" x2="22" y2="26" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round"/>
+          <line x1="28" y1="14" x2="28" y2="20" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="28" cy="21" r="1.5" fill="#60a5fa"/>
+        </svg>
+        <span class="nav-logo-text">CS<em>A</em></span>
+      </a>
+      <p>National-level academic competitions built by students, for students.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="competitions.html">Competitions</a></li>
+        <li><a href="submit.html">Submit Work</a></li>
+        <li><a href="apply.html">Join the Team</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:canadianscholarsassociation@gmail.com">Email Us</a></li>
+        <li><a href="https://www.instagram.com/csa.official2026" target="_blank">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Canadian Students Association. All rights reserved.</p>
+    <p>Made by students, for students. <span class="accent">🍁</span></p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>
