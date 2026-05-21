@@ -10,199 +10,272 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="styles.css"/>
 <style>
+/* ── COMPETITION COLOR SYSTEM ── */
+:root {
+  --c-entrep:  #f97316;
+  --c-biz:     #a855f7;
+  --c-english: #10b981;
+  --c-science: #06b6d4;
+  --c-math:    #f43f5e;
+  --c-more:    #eab308;
+}
+
 .page-hero { padding: calc(68px + 5rem) 6% 5rem; }
 
-/* ── TICKER (same as home) ── */
-.ticker-wrap {
-  background: var(--blue);
-  border-top: 1px solid rgba(255,255,255,0.15);
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  overflow: hidden;
-  position: relative;
-}
-.ticker-wrap::before,.ticker-wrap::after {
-  content:''; position:absolute; top:0; bottom:0; width:80px; z-index:3; pointer-events:none;
-}
-.ticker-wrap::before { left:0; background:linear-gradient(to right,var(--blue),transparent); }
-.ticker-wrap::after  { right:0; background:linear-gradient(to left,var(--blue),transparent); }
-.ticker-track {
-  display:flex; width:max-content;
-  animation: ticker-scroll 32s linear infinite;
-}
-.ticker-track:hover { animation-play-state:paused; }
-.ticker-item {
-  display:flex; align-items:center; gap:14px;
-  padding:14px 40px; white-space:nowrap;
-  font-size:.82rem; font-weight:700; letter-spacing:.1em;
-  text-transform:uppercase; color:rgba(255,255,255,0.95);
-}
-.ticker-dot { width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.5);flex-shrink:0; }
-.ticker-item .badge { font-size:.65rem;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:4px;text-transform:uppercase; }
-.badge-open { background:rgba(255,255,255,0.2);color:#fff; }
-.badge-soon { background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.65); }
-@keyframes ticker-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-/* ── DECA-STYLE EVENT CARDS ── */
-.deca-events-grid {
+/* ── COMP CARDS GRID ── */
+.comps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
   margin-top: 3rem;
-  background: var(--border);
 }
-.deca-event-card {
-  background: var(--bg2);
-  padding: 36px 32px;
-  position: relative;
-  transition: background .25s;
-}
-.deca-event-card::after {
-  content: '';
-  position: absolute;
-  left: 32px; right: 32px; bottom: 0;
-  height: 1px;
-  background: var(--border);
-}
-.deca-event-card:hover { background: var(--bg3); }
 
-.deca-event-header {
+.comp-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s, border-color .3s;
+  display: flex;
+  flex-direction: column;
+}
+.comp-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(0,0,0,.4);
+  border-color: var(--card-color);
+}
+.comp-card-top {
+  height: 5px;
+  background: var(--card-color);
+  flex-shrink: 0;
+}
+.comp-card-body {
+  padding: 28px 26px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.comp-card-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 10px;
   margin-bottom: 1rem;
-  gap: 12px;
 }
-.deca-event-icon-wrap {
-  width: 52px; height: 52px; min-width: 52px;
-  border-radius: 12px;
-  background: rgba(37,99,235,0.1);
-  border: 1px solid rgba(37,99,235,0.2);
+.comp-card-icon-wrap {
+  width: 46px; height: 46px;
+  border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--card-color) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--card-color) 28%, transparent);
 }
-.deca-event-badge {
-  font-size: .68rem; font-weight: 700;
-  letter-spacing: .09em; text-transform: uppercase;
-  padding: 4px 10px; border-radius: 5px;
+.comp-card-badge {
+  font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 3px; flex-shrink: 0; margin-top: 4px;
 }
-.deca-badge-open  { background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.3); color:#4ade80; }
-.deca-badge-soon  { background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.25); color:#fbbf24; }
-.deca-badge-future{ background:rgba(148,163,184,0.08); border:1px solid rgba(148,163,184,0.2); color:#94a3b8; }
+.badge-open   { background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.3); color: #34d399; }
+.badge-soon   { background: rgba(251,191,36,.1);  border: 1px solid rgba(251,191,36,.25); color: #fbbf24; }
+.badge-future { background: rgba(148,163,184,.08); border: 1px solid rgba(148,163,184,.18); color: #94a3b8; }
 
-.deca-event-card h3 { font-size:1.08rem; font-weight:700; color:var(--white); margin-bottom:.5rem; letter-spacing:.01em; }
-.deca-event-card p  { font-size:.88rem; color:var(--grey); line-height:1.65; margin-bottom:1.25rem; }
-
-.deca-event-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 1rem;
+.comp-card h3 { font-size: 1.02rem; font-weight: 700; color: var(--white); margin-bottom: .45rem; }
+.comp-card p  { font-size: .86rem; color: var(--grey); line-height: 1.65; flex: 1; }
+.comp-card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 1.4rem; padding-top: 1.1rem;
   border-top: 1px solid var(--border);
 }
-.deca-event-tags { display:flex; gap:8px; flex-wrap:wrap; }
-.deca-tag {
-  font-size:.7rem; font-weight:600; letter-spacing:.04em;
-  padding:3px 10px; border-radius:4px;
-  background:rgba(37,99,235,0.08); border:1px solid rgba(37,99,235,0.2); color:#93c5fd;
+.comp-card-num  { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--card-color); opacity: .7; }
+.comp-card-link {
+  font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--card-color); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 4px;
+  transition: opacity .2s; cursor: pointer; background: none; border: none; padding: 0;
 }
-.deca-btn {
-  font-size:.78rem; font-weight:700; letter-spacing:.04em;
-  padding:8px 18px; border-radius:6px;
-  text-decoration:none; white-space:nowrap;
-  transition:background .2s, transform .15s;
-}
-.deca-btn-primary { background:var(--blue); color:#fff; }
-.deca-btn-primary:hover { background:var(--blue-light); transform:translateY(-1px); }
-.deca-btn-ghost { background:var(--bg3); color:var(--grey); border:1px solid var(--border); }
-.deca-btn-ghost:hover { border-color:var(--border2); color:var(--white); }
+.comp-card-link:hover { opacity: .7; }
 
-/* ── PROCESS STEPS (horizontal) ── */
-.steps-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  margin-top: 3rem;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--border);
+.card-entrep  { --card-color: var(--c-entrep); }
+.card-biz     { --card-color: var(--c-biz); }
+.card-english { --card-color: var(--c-english); }
+.card-science { --card-color: var(--c-science); }
+.card-math    { --card-color: var(--c-math); }
+.card-more    { --card-color: var(--c-more); }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(4, 6, 15, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s;
 }
-.step-card {
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal-box {
   background: var(--bg2);
-  padding: 32px 28px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  width: 100%; max-width: 640px;
+  max-height: 85vh;
+  overflow-y: auto;
+  transform: translateY(24px) scale(.97);
+  transition: transform .35s cubic-bezier(.16,1,.3,1);
   position: relative;
 }
-.step-num {
+.modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+
+.modal-color-bar {
+  height: 6px;
+  background: var(--modal-color, var(--blue));
+  border-radius: 20px 20px 0 0;
+  flex-shrink: 0;
+}
+.modal-body { padding: 36px 40px 40px; }
+
+.modal-close {
+  position: absolute; top: 18px; right: 20px;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--grey); font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, color .2s; line-height: 1;
+}
+.modal-close:hover { background: var(--border); color: var(--white); }
+
+.modal-tag {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 4px;
+  background: color-mix(in srgb, var(--modal-color) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--modal-color) 30%, transparent);
+  color: var(--modal-color);
+  margin-bottom: 1.1rem;
+}
+.modal-title {
   font-family: var(--font-serif);
-  font-size: 3.5rem;
-  color: rgba(37,99,235,0.12);
-  line-height: 1;
-  margin-bottom: .75rem;
-  font-weight: 400;
-  transition: color .25s;
+  font-size: 1.8rem; color: var(--white);
+  line-height: 1.2; margin-bottom: .75rem; letter-spacing: -.01em;
 }
-.step-card:hover .step-num { color: rgba(37,99,235,0.25); }
-.step-card h3 { font-size:.95rem; font-weight:700; color:var(--white); margin-bottom:.4rem; letter-spacing:.01em; }
-.step-card p  { font-size:.83rem; color:var(--grey); line-height:1.65; }
+.modal-desc { color: var(--grey); font-size: .95rem; line-height: 1.75; margin-bottom: 1.75rem; }
 
-/* ── REGISTER LAYOUT ── */
-.register-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  gap: 5rem;
-  align-items: start;
-  margin-top: 3rem;
+.modal-details-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 2rem;
 }
-.register-info h3 {
-  font-family: var(--font-serif);
-  font-size: 1.6rem; color:var(--white); margin-bottom:1rem;
-}
-.register-info p { color:var(--grey); font-size:.95rem; line-height:1.75; margin-bottom:1.5rem; }
-.register-perks { list-style:none; display:flex; flex-direction:column; gap:.75rem; margin-bottom:2rem; }
-.register-perks li { display:flex; align-items:flex-start; gap:10px; font-size:.92rem; color:var(--grey); }
-.register-perks li span { color:var(--blue-light); font-weight:700; flex-shrink:0; }
-
-.fee-badge {
-  display: inline-flex; align-items: center; gap: 14px;
-  background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.3);
-  border-radius: 10px; padding: 16px 22px; margin-bottom: 1.75rem;
-}
-.fee-amount { font-family:var(--font-serif); font-size:2.4rem; color:var(--white); line-height:1; }
-.fee-label  { font-size:.8rem; color:var(--grey); line-height:1.4; }
-.fee-label strong { color:var(--blue-light); display:block; }
-
-/* ── AWARDS STRIP ── */
-.awards-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  background: var(--border);
+.modal-detail-item {
+  background: var(--bg3);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  margin-top: 3rem;
+  border-radius: 10px; padding: 16px 18px;
 }
-.award-item {
-  background: var(--bg2);
-  padding: 32px 24px;
-  text-align: center;
-  transition: background .2s;
+.modal-detail-label {
+  font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--grey2); margin-bottom: .35rem;
 }
+.modal-detail-val { font-size: .9rem; color: var(--white); font-weight: 500; }
+
+.modal-section-title {
+  font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--grey2); margin-bottom: .85rem; margin-top: 1.5rem;
+}
+.modal-list {
+  list-style: none; display: flex; flex-direction: column; gap: .55rem; margin-bottom: 1.5rem;
+}
+.modal-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: .9rem; color: var(--grey); line-height: 1.55;
+}
+.modal-list li::before {
+  content: '→'; color: var(--modal-color); font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+
+.modal-footer {
+  display: flex; gap: 12px; flex-wrap: wrap; margin-top: 2rem;
+  padding-top: 1.5rem; border-top: 1px solid var(--border);
+}
+.modal-btn-primary {
+  padding: 11px 28px; border-radius: 7px; font-size: .86rem; font-weight: 700;
+  background: var(--modal-color); color: #fff; text-decoration: none;
+  transition: opacity .2s, transform .15s; letter-spacing: .03em;
+}
+.modal-btn-primary:hover { opacity: .85; transform: translateY(-1px); }
+.modal-btn-ghost {
+  padding: 11px 24px; border-radius: 7px; font-size: .86rem; font-weight: 700;
+  background: var(--bg3); border: 1px solid var(--border); color: var(--grey);
+  text-decoration: none; transition: border-color .2s, color .2s;
+}
+.modal-btn-ghost:hover { border-color: var(--border2); color: var(--white); }
+
+.modal-coming-soon {
+  text-align: center; padding: 2rem 0;
+}
+.modal-coming-soon .big-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.modal-coming-soon h3 { font-family: var(--font-serif); font-size: 1.5rem; color: var(--white); margin-bottom: .6rem; }
+.modal-coming-soon p { color: var(--grey); font-size: .92rem; line-height: 1.7; }
+
+/* ── HOW IT WORKS ── */
+.steps-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  margin-top: 3rem; border: 1px solid var(--border); border-radius: 16px;
+  overflow: hidden; background: var(--border);
+}
+.step-card { background: var(--bg2); padding: 32px 28px; }
+.step-num {
+  font-family: var(--font-serif); font-size: 3.5rem;
+  color: rgba(37,99,235,.12); line-height: 1; margin-bottom: .75rem;
+  font-weight: 400; transition: color .25s;
+}
+.step-card:hover .step-num { color: rgba(37,99,235,.25); }
+.step-card h3 { font-size: .95rem; font-weight: 700; color: var(--white); margin-bottom: .4rem; }
+.step-card p  { font-size: .83rem; color: var(--grey); line-height: 1.65; }
+
+/* ── AWARDS ── */
+.awards-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  background: var(--border); border: 1px solid var(--border); border-radius: 16px;
+  overflow: hidden; margin-top: 3rem;
+}
+.award-item { background: var(--bg2); padding: 32px 24px; text-align: center; transition: background .2s; }
 .award-item:hover { background: var(--bg3); }
 .award-icon { font-size: 2rem; margin-bottom: .75rem; display: block; }
 .award-label { font-size: .8rem; font-weight: 600; color: var(--grey); letter-spacing: .04em; text-transform: uppercase; }
 
+/* ── REGISTER ── */
+.register-layout {
+  display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem;
+  align-items: start; margin-top: 3rem;
+}
+.register-info h3 { font-family: var(--font-serif); font-size: 1.6rem; color: var(--white); margin-bottom: 1rem; }
+.register-info p  { color: var(--grey); font-size: .95rem; line-height: 1.75; margin-bottom: 1.5rem; }
+.register-perks { list-style: none; display: flex; flex-direction: column; gap: .75rem; margin-bottom: 2rem; }
+.register-perks li { display: flex; align-items: flex-start; gap: 10px; font-size: .92rem; color: var(--grey); }
+.register-perks li span { color: var(--blue-light); font-weight: 700; flex-shrink: 0; }
+.fee-badge {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: rgba(37,99,235,.1); border: 1px solid rgba(37,99,235,.3);
+  border-radius: 10px; padding: 16px 22px; margin-bottom: 1.75rem;
+}
+.fee-amount { font-family: var(--font-serif); font-size: 2.4rem; color: var(--white); line-height: 1; }
+.fee-label  { font-size: .8rem; color: var(--grey); line-height: 1.4; }
+.fee-label strong { color: var(--blue-light); display: block; }
+
+/* ── SECTION ── */
+.section-label { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue-light); margin-bottom: .8rem; }
+.section-title { font-family: var(--font-serif); font-size: clamp(2rem,4vw,2.9rem); line-height: 1.18; letter-spacing: -.02em; color: var(--white); margin-bottom: 1rem; }
+.section-sub   { color: var(--grey); font-size: 1.05rem; max-width: 560px; font-weight: 300; }
+
 @media(max-width:900px){
-  .steps-row { grid-template-columns: 1fr 1fr; }
+  .comps-grid { grid-template-columns: repeat(2,1fr); }
+  .steps-row  { grid-template-columns: 1fr 1fr; }
   .awards-strip { grid-template-columns: 1fr 1fr; }
-  .register-layout { grid-template-columns: 1fr; gap:2.5rem; }
-  .deca-events-grid { grid-template-columns: 1fr; }
+  .register-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .modal-details-grid { grid-template-columns: 1fr; }
+  .modal-body { padding: 28px 24px 32px; }
 }
 @media(max-width:600px){
-  .steps-row { grid-template-columns: 1fr; }
+  .comps-grid { grid-template-columns: 1fr; }
+  .steps-row  { grid-template-columns: 1fr; }
   .awards-strip { grid-template-columns: 1fr 1fr; }
 }
 </style>
@@ -243,24 +316,11 @@
   </div>
 </div>
 
-
-<!-- EVENTS -->
-<section style="background:var(--bg)">
-  <div class="section-label">Open &amp; Upcoming</div>
-  <h2 class="section-title">Current Events</h2>
-  <p class="section-sub">Three events open for registration right now. Two more launching soon.</p>
-
-<section class="comps-section" style="padding:96px 6%">
-  <div class="comps-header">
-    <div>
-      <div class="section-label">Events</div>
-      <h2 class="section-title" style="margin-bottom:.5rem">All Competitions</h2>
-      <p class="section-sub">Five disciplines. One platform. Open to every Canadian student.</p>
-    </div>
-    <div class="comps-header-right">
-      <a href="competitions.html">View all details &amp; register →</a>
-    </div>
-  </div>
+<!-- ── ALL COMPETITIONS ── -->
+<section style="padding:96px 6%;background:var(--bg)">
+  <div class="section-label">Events</div>
+  <h2 class="section-title">All Competitions</h2>
+  <p class="section-sub">Five disciplines. One platform. Open to every Canadian student.</p>
 
   <div class="comps-grid">
 
@@ -275,7 +335,7 @@
         <p>Pitch your startup idea, build a business plan, and present to a panel of judges. Real mentorship, real stakes.</p>
         <div class="comp-card-footer">
           <span class="comp-card-num">Event 01</span>
-          <a href="competitions.html#register" class="comp-card-link">Register →</a>
+          <button class="comp-card-link" onclick="openModal('entrep')">Learn More →</button>
         </div>
       </div>
     </div>
@@ -291,7 +351,7 @@
         <p>Tackle real-world business scenarios with financial analysis and strategic thinking under competition conditions.</p>
         <div class="comp-card-footer">
           <span class="comp-card-num">Event 02</span>
-          <a href="competitions.html#register" class="comp-card-link">Register →</a>
+          <button class="comp-card-link" onclick="openModal('biz')">Learn More →</button>
         </div>
       </div>
     </div>
@@ -307,7 +367,7 @@
         <p>Essays, public speaking, and creative writing. Every voice and every style has a place in this event.</p>
         <div class="comp-card-footer">
           <span class="comp-card-num">Event 03</span>
-          <a href="competitions.html#register" class="comp-card-link">Register →</a>
+          <button class="comp-card-link" onclick="openModal('english')">Learn More →</button>
         </div>
       </div>
     </div>
@@ -323,7 +383,7 @@
         <p>Research presentations and STEM problem-solving for students who want to push the boundaries of discovery.</p>
         <div class="comp-card-footer">
           <span class="comp-card-num">Event 04</span>
-          <a href="competitions.html" class="comp-card-link">Learn More →</a>
+          <button class="comp-card-link" onclick="openModal('science')">Learn More →</button>
         </div>
       </div>
     </div>
@@ -339,7 +399,7 @@
         <p>Problem sets and speed rounds spanning algebra, statistics, and calculus. Every skill level is welcome.</p>
         <div class="comp-card-footer">
           <span class="comp-card-num">Event 05</span>
-          <a href="competitions.html" class="comp-card-link">Learn More →</a>
+          <button class="comp-card-link" onclick="openModal('math')">Learn More →</button>
         </div>
       </div>
     </div>
@@ -360,12 +420,11 @@
       </div>
     </div>
 
-
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section style="background:var(--bg2);border-top:1px solid var(--border)">
+<!-- ── HOW IT WORKS ── -->
+<section style="background:var(--bg2);border-top:1px solid var(--border);padding:96px 6%">
   <div class="section-label">Process</div>
   <h2 class="section-title">How It Works</h2>
   <p class="section-sub">Four steps from registration to results.</p>
@@ -393,8 +452,8 @@
   </div>
 </section>
 
-<!-- AWARDS -->
-<section style="background:var(--bg)">
+<!-- ── AWARDS ── -->
+<section style="background:var(--bg);border-top:1px solid var(--border);padding:96px 6%">
   <div class="section-label">Rewards</div>
   <h2 class="section-title">What You Compete For</h2>
   <p class="section-sub">Every CSA competition is built to recognize your effort and build your future.</p>
@@ -406,8 +465,8 @@
   </div>
 </section>
 
-<!-- REGISTER -->
-<section id="register" style="background:var(--bg2);border-top:1px solid var(--border)">
+<!-- ── REGISTER ── -->
+<section id="register" style="background:var(--bg2);border-top:1px solid var(--border);padding:96px 6%">
   <div class="section-label">Join the Competition</div>
   <h2 class="section-title">Register for an Event</h2>
   <p class="section-sub">Sign up below — our team follows up with payment details and next steps.</p>
@@ -416,12 +475,10 @@
     <div class="register-info">
       <h3>Why compete with CSA?</h3>
       <p>Our events challenge you, connect you with peers across Canada, and build skills that go beyond the classroom.</p>
-
       <div class="fee-badge">
         <div class="fee-amount">$20</div>
         <div class="fee-label">per event<br/><strong>flat participation fee</strong></div>
       </div>
-
       <ul class="register-perks">
         <li><span>✓</span>Open to all Canadian secondary and post-secondary students</li>
         <li><span>✓</span>Official certificate of participation for every competitor</li>
@@ -429,7 +486,6 @@
         <li><span>✓</span>Fully online — compete from anywhere in Canada</li>
         <li><span>✓</span>Expert judge feedback on every submission</li>
       </ul>
-
       <p style="font-size:.88rem;color:var(--grey2)">Questions? <a href="mailto:canadianscholarsassociation@gmail.com" style="color:var(--blue-light);text-decoration:none">canadianscholarsassociation@gmail.com</a></p>
     </div>
 
@@ -437,7 +493,6 @@
       <div class="section-label">Registration Form</div>
       <h3 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--white);margin-bottom:.4rem">Sign Up to Compete</h3>
       <p style="color:var(--grey2);font-size:.88rem;margin-bottom:2rem">We'll follow up with payment info and your competition package within 24 hours.</p>
-
       <div class="form-row">
         <div class="form-group"><label>First Name</label><input type="text" placeholder="Jane" id="r-firstName"/></div>
         <div class="form-group"><label>Last Name</label><input type="text" placeholder="Smith" id="r-lastName"/></div>
@@ -490,7 +545,7 @@
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -545,13 +600,178 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2025 Canadian Students Association. All rights reserved.</p>
+    <p>&copy; 2025 Canadian Scholars Association. All rights reserved.</p>
     <p>Made by students, for students. <span class="accent">🍁</span></p>
   </div>
 </footer>
 
+<!-- ═══════════════════════════════════════════
+     MODALS
+═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-color-bar" id="modal-color-bar"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-body" id="modal-body">
+      <!-- injected by JS -->
+    </div>
+  </div>
+</div>
+
 <script src="shared.js"></script>
 <script>
+// ── MODAL DATA ──
+// Add your real details inside each object — these placeholders are easy to update.
+var MODALS = {
+  entrep: {
+    color: '#f97316',
+    icon: '🚀',
+    label: 'Event 01 · Open Now',
+    title: 'Entrepreneurship Challenge',
+    desc: 'Turn your idea into a pitch. Build a business plan, develop a go-to-market strategy, and present to a panel of experienced judges. This competition rewards creative thinking, real-world viability, and the confidence to defend your vision.',
+    details: [
+      { label: 'Status',    val: '● Open for Registration' },
+      { label: 'Fee',       val: '$20 per participant' },
+      { label: 'Format',    val: 'Written Plan + Presentation' },
+      { label: 'Deadline',  val: 'TBA — check your email' },
+    ],
+    whatToExpect: [
+      'Submit a written business plan (format guidelines sent after registration)',
+      'Prepare a short presentation or pitch deck',
+      'Receive written feedback from judges',
+      'Top submissions earn cash prizes and national recognition',
+    ],
+    open: true,
+  },
+  biz: {
+    color: '#a855f7',
+    icon: '📊',
+    label: 'Event 02 · Open Now',
+    title: 'Business Case Competition',
+    desc: 'Analyze a real-world business scenario under competition conditions. Apply financial analysis, strategic frameworks, and creative problem-solving to present a compelling recommendation — just like consultants do.',
+    details: [
+      { label: 'Status',    val: '● Open for Registration' },
+      { label: 'Fee',       val: '$20 per participant' },
+      { label: 'Format',    val: 'Case Analysis + Report' },
+      { label: 'Deadline',  val: 'TBA — check your email' },
+    ],
+    whatToExpect: [
+      'Receive a business case prompt after registration',
+      'Prepare a structured written analysis and recommendation',
+      'Judges score on logic, depth, and presentation clarity',
+      'Cash prizes for top-ranked submissions',
+    ],
+    open: true,
+  },
+  english: {
+    color: '#10b981',
+    icon: '✍️',
+    label: 'Event 03 · Open Now',
+    title: 'English Writing Competition',
+    desc: 'Express your ideas, argue your perspective, or tell your story. This competition accepts essays, persuasive writing, and creative non-fiction. Every voice and every style is welcome — what matters is craft.',
+    details: [
+      { label: 'Status',    val: '● Open for Registration' },
+      { label: 'Fee',       val: '$20 per participant' },
+      { label: 'Format',    val: 'Written Submission' },
+      { label: 'Deadline',  val: 'TBA — check your email' },
+    ],
+    whatToExpect: [
+      'Choose from essay, persuasive, or creative writing categories',
+      'Prompt and word count guidelines sent after registration',
+      'Professional judges provide written feedback on every submission',
+      'Top pieces receive cash prizes and are featured by CSA',
+    ],
+    open: true,
+  },
+  science: {
+    color: '#06b6d4',
+    icon: '🔬',
+    label: 'Event 04 · Coming Soon',
+    title: 'Science Showcase',
+    desc: 'Present your research, experiments, or STEM projects to a national audience. This event celebrates curiosity-driven thinking and original discovery from students at every level.',
+    details: [
+      { label: 'Status',    val: '⏳ Coming Soon' },
+      { label: 'Fee',       val: '$20 per participant' },
+      { label: 'Format',    val: 'Research Poster / Presentation' },
+      { label: 'Opening',   val: 'Announcement via Instagram' },
+    ],
+    whatToExpect: [
+      'Original research or experiment with a clear methodology',
+      'Submit a research poster or short written summary',
+      'Judged on scientific merit, clarity, and originality',
+      'Follow our Instagram to be notified when registration opens',
+    ],
+    open: false,
+  },
+  math: {
+    color: '#f43f5e',
+    icon: '🧮',
+    label: 'Event 05 · Coming Soon',
+    title: 'Mathematics Challenge',
+    desc: 'Test your skills across algebra, statistics, calculus, and logical reasoning. Problem sets and speed rounds for every level — from students discovering math competitions for the first time to seasoned competitors.',
+    details: [
+      { label: 'Status',    val: '⏳ Coming Soon' },
+      { label: 'Fee',       val: '$20 per participant' },
+      { label: 'Format',    val: 'Problem Sets + Speed Rounds' },
+      { label: 'Opening',   val: 'Announcement via Instagram' },
+    ],
+    whatToExpect: [
+      'Multiple rounds covering different mathematical domains',
+      'Timed problem sets completed online',
+      'Separate tracks for secondary and post-secondary students',
+      'Follow our Instagram to be notified when registration opens',
+    ],
+    open: false,
+  },
+};
+
+function openModal(key) {
+  var d = MODALS[key];
+  if(!d) return;
+
+  document.getElementById('modal-color-bar').style.background = d.color;
+  document.getElementById('modal-box').style.setProperty('--modal-color', d.color);
+
+  var detailsHTML = d.details.map(function(item){
+    return '<div class="modal-detail-item"><div class="modal-detail-label">'+item.label+'</div><div class="modal-detail-val">'+item.val+'</div></div>';
+  }).join('');
+
+  var listHTML = d.whatToExpect.map(function(item){
+    return '<li>'+item+'</li>';
+  }).join('');
+
+  var footerHTML = d.open
+    ? '<a href="#register" class="modal-btn-primary" onclick="closeModal()">Register — $20</a><button class="modal-btn-ghost" onclick="closeModal()">Close</button>'
+    : '<a href="https://www.instagram.com/csa.official2026" target="_blank" class="modal-btn-primary" style="background:'+d.color+'">Follow for Updates</a><button class="modal-btn-ghost" onclick="closeModal()">Close</button>';
+
+  document.getElementById('modal-body').innerHTML =
+    '<div class="modal-tag"><span style="width:7px;height:7px;border-radius:50%;background:'+d.color+';display:inline-block"></span>'+d.label+'</div>'+
+    '<h2 class="modal-title">'+d.icon+' '+d.title+'</h2>'+
+    '<p class="modal-desc">'+d.desc+'</p>'+
+    '<div class="modal-details-grid">'+detailsHTML+'</div>'+
+    '<div class="modal-section-title">What to expect</div>'+
+    '<ul class="modal-list">'+listHTML+'</ul>'+
+    '<div class="modal-footer">'+footerHTML+'</div>';
+
+  var overlay = document.getElementById('modal-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if(e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeModal();
+});
+
+// ── REGISTER FORM ──
 function handleRegister() {
   var f = document.getElementById('r-firstName').value.trim();
   var l = document.getElementById('r-lastName').value.trim();
@@ -561,7 +781,7 @@ function handleRegister() {
   var c = document.getElementById('r-competition').value;
   var confirmed = document.getElementById('r-confirm').checked;
   var toast = document.getElementById('registerToast');
-  if (!f || !l || !e || !s || !g || !c) {
+  if (!f||!l||!e||!s||!g||!c) {
     toast.className='form-toast error'; toast.style.display='block';
     toast.textContent='Please fill out all required fields.'; return;
   }
