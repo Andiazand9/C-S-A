@@ -11,178 +11,390 @@
 <link rel="stylesheet" href="styles.css"/>
 <style>
 
-/* ── TICKER ── */
-.ticker-wrap {
-  background: var(--blue);
-  border-top: 1px solid rgba(255,255,255,0.15);
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  overflow: hidden;
-  padding: 0;
+/* ── COMPETITION COLOR SYSTEM ── */
+:root {
+  --c-entrep:  #f97316;
+  --c-biz:     #a855f7;
+  --c-english: #10b981;
+  --c-science: #06b6d4;
+  --c-math:    #f43f5e;
+  --c-more:    #eab308;
+}
+
+/* ── HERO adjustments ── */
+.hero-title em { color: var(--blue-light); }
+
+/* ── PHOTO SLIDER ── */
+.photo-slider {
   position: relative;
-  z-index: 2;
+  height: 520px;
+  overflow: hidden;
+  background: #04060f;
 }
-.ticker-wrap::before,
-.ticker-wrap::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 80px;
-  z-index: 3;
-  pointer-events: none;
-}
-.ticker-wrap::before { left: 0; background: linear-gradient(to right, var(--blue), transparent); }
-.ticker-wrap::after  { right: 0; background: linear-gradient(to left, var(--blue), transparent); }
-
-.ticker-track {
+.slider-track {
   display: flex;
-  width: max-content;
-  animation: ticker-scroll 32s linear infinite;
+  height: 100%;
+  transition: transform .7s cubic-bezier(.77,0,.18,1);
+  will-change: transform;
 }
-.ticker-track:hover { animation-play-state: paused; }
-
-.ticker-item {
+.slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(.6);
+  transition: transform 8s ease;
+}
+.slider-track .slide.active img {
+  transform: scale(1.04);
+}
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(7,9,26,.85) 0%, rgba(7,9,26,.3) 55%, transparent 100%);
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px 40px;
-  white-space: nowrap;
+  padding: 0 6%;
+}
+.slide-content {
+  max-width: 520px;
+}
+.slide-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 3px;
+  margin-bottom: 1.1rem;
+  border: 1px solid;
+}
+.slide-content h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: .7rem;
+  letter-spacing: -.02em;
+}
+.slide-content p {
+  font-size: .93rem;
+  color: rgba(255,255,255,.75);
+  line-height: 1.65;
+  font-weight: 300;
+  margin-bottom: 1.4rem;
+}
+.slide-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 5px;
   font-size: .82rem;
   font-weight: 700;
-  letter-spacing: .1em;
+  letter-spacing: .05em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.95);
+  text-decoration: none;
+  background: var(--slide-color, var(--blue));
+  color: #fff;
+  transition: opacity .2s, transform .15s;
 }
-.ticker-dot {
+.slide-cta:hover { opacity: .85; transform: translateY(-1px); }
+
+/* Slider nav */
+.slider-arrows {
+  position: absolute;
+  bottom: 28px;
+  right: 6%;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+.slider-arrow {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+  backdrop-filter: blur(8px);
+}
+.slider-arrow:hover { background: rgba(255,255,255,.2); }
+
+.slider-dots {
+  position: absolute;
+  bottom: 36px;
+  left: 6%;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+.slider-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,.3);
+  cursor: pointer;
+  transition: background .25s, transform .25s;
+  border: none;
+  padding: 0;
+}
+.slider-dot.active {
+  background: #fff;
+  transform: scale(1.4);
+}
+
+/* Progress bar */
+.slider-progress {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 3px;
+  background: var(--blue-light);
+  width: 0%;
+  transition: width .1s linear;
+  z-index: 10;
+}
+
+/* ── SECTION COMMONS ── */
+.section-label { font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-light);margin-bottom:.8rem }
+.section-title { font-family:var(--font-serif);font-size:clamp(2rem,4vw,2.9rem);line-height:1.18;letter-spacing:-.02em;color:var(--white);margin-bottom:1rem }
+.section-sub { color:var(--grey);font-size:1.05rem;max-width:560px;font-weight:300 }
+
+/* ── STATS STRIP ── */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+.stat-cell {
+  padding: 36px 24px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  transition: background .2s;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell:hover { background: var(--bg3); }
+.stat-num-big {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem,4vw,3.2rem);
+  color: var(--white); line-height:1; margin-bottom:.4rem;
+}
+.stat-num-big .accent { color:var(--blue-light) }
+.stat-label-sm {
+  font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey2);
+}
+
+/* ── COLOR-CODED COMPETITION CARDS ── */
+.comps-section { background: var(--bg2); border-bottom: 1px solid var(--border); }
+
+.comps-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+.comps-header-right a {
+  font-size:.85rem;font-weight:600;color:var(--blue-light);text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:opacity .2s;
+}
+.comps-header-right a:hover{opacity:.7}
+
+.comps-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px;
+}
+
+.comp-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0;
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s, border-color .3s;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+}
+.comp-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(0,0,0,.4);
+  border-color: var(--card-color);
+}
+.comp-card-top {
+  height: 5px;
+  background: var(--card-color);
   flex-shrink: 0;
 }
-.ticker-item .badge {
-  font-size: .65rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  padding: 2px 8px;
-  border-radius: 4px;
-  text-transform: uppercase;
+.comp-card-body {
+  padding: 28px 26px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
-.badge-open   { background: rgba(255,255,255,0.2); color: #fff; }
-.badge-soon   { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.65); }
-
-@keyframes ticker-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.comp-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap:10px;
+  margin-bottom: 1rem;
 }
+.comp-card-icon-wrap {
+  width: 46px; height: 46px;
+  border-radius: 10px;
+  display: flex; align-items:center; justify-content:center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--card-color) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--card-color) 28%, transparent);
+}
+.comp-card-badge {
+  font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 9px;border-radius:3px;flex-shrink:0;margin-top:4px;
+}
+.badge-open { background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:#34d399 }
+.badge-soon { background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:#fbbf24 }
+.badge-future { background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.18);color:#94a3b8 }
 
-/* ── DECA-STYLE COMPETITION CARDS ── */
-.comp-showcase {
+.comp-card h3 {
+  font-size:1.02rem;font-weight:700;color:var(--white);margin-bottom:.45rem;letter-spacing:.005em;
+}
+.comp-card p {
+  font-size:.86rem;color:var(--grey);line-height:1.65;flex:1;
+}
+.comp-card-footer {
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:1.4rem;padding-top:1.1rem;
+  border-top:1px solid var(--border);
+}
+.comp-card-num {
+  font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color: var(--card-color); opacity:.7;
+}
+.comp-card-link {
+  font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--card-color);text-decoration:none;
+  display:inline-flex;align-items:center;gap:4px;
+  transition:opacity .2s;
+}
+.comp-card-link:hover{opacity:.7}
+
+/* Card color assignments */
+.card-entrep  { --card-color: var(--c-entrep); }
+.card-biz     { --card-color: var(--c-biz); }
+.card-english { --card-color: var(--c-english); }
+.card-science { --card-color: var(--c-science); }
+.card-math    { --card-color: var(--c-math); }
+.card-more    { --card-color: var(--c-more); }
+
+/* ── SPLIT CTA BANNER ── */
+.cta-banner {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
+  grid-template-columns: 1fr 1px 1fr;
+  background: var(--bg3);
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
-  margin-top: 4rem;
+  margin-top: 3.5rem;
 }
-.comp-showcase-card {
+.cta-divider { background: var(--border); }
+.cta-half {
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.cta-half h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--white);
+  line-height: 1.2;
+}
+.cta-half p { font-size:.9rem;color:var(--grey);font-weight:300;line-height:1.7;margin:0; }
+
+/* ── WHY CSA ── */
+.why-section { background: var(--bg); }
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--border);
+  margin-top: 3rem;
+}
+.why-card {
   background: var(--bg2);
   padding: 32px 28px;
   position: relative;
-  overflow: hidden;
-  transition: background .25s;
-  cursor: default;
+  transition: background .2s;
 }
-.comp-showcase-card::before {
+.why-card:hover { background: var(--bg3); }
+.why-card::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--blue), var(--blue-light));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .35s ease;
+  top:0;left:0;right:0;height:3px;
+  background: var(--card-accent);
+  opacity:.8;
 }
-.comp-showcase-card:hover { background: var(--bg3); }
-.comp-showcase-card:hover::before { transform: scaleX(1); }
-.comp-card-num {
-  font-family: var(--font-serif);
-  font-size: 3rem;
-  color: rgba(59,130,246,0.12);
-  line-height: 1;
-  margin-bottom: .5rem;
-  font-weight: 400;
-  letter-spacing: -.04em;
-  transition: color .25s;
-}
-.comp-showcase-card:hover .comp-card-num { color: rgba(59,130,246,0.25); }
-.comp-card-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: .4rem;
-  letter-spacing: .01em;
-}
-.comp-card-desc {
-  font-size: .83rem;
-  color: var(--grey);
-  line-height: 1.6;
-}
-.comp-card-status {
-  display: inline-block;
-  margin-top: 1rem;
-  font-size: .68rem;
-  font-weight: 700;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 4px;
-}
-.status-open { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; }
-.status-soon { background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25); color: #fbbf24; }
+.why-card .why-icon { font-size:1.5rem;margin-bottom:.75rem; }
+.why-card h3 { font-size:.98rem;font-weight:700;color:var(--white);margin-bottom:.45rem; }
+.why-card p  { font-size:.86rem;color:var(--grey);line-height:1.65; }
 
-/* ── DECA BANNER ── */
-.deca-banner {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 2rem;
-  background: linear-gradient(135deg, #0f1e5c 0%, #0d1230 60%, #07091a 100%);
-  border: 1px solid rgba(37,99,235,0.3);
-  border-radius: 16px;
-  padding: 36px 40px;
-  margin-top: 4rem;
-  position: relative;
-  overflow: hidden;
-}
-.deca-banner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 40px,
-    rgba(37,99,235,0.025) 40px,
-    rgba(37,99,235,0.025) 41px
-  );
-}
-.deca-banner-text { position: relative; z-index: 1; }
-.deca-banner-text h3 {
-  font-family: var(--font-serif);
-  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-  color: var(--white);
-  margin-bottom: .5rem;
-}
-.deca-banner-text p { font-size: .92rem; color: var(--grey); font-weight: 300; margin: 0; }
-.deca-banner-actions { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 36px}
+.footer-inner{display:flex;flex-wrap:wrap;gap:3rem;justify-content:space-between;margin-bottom:2.5rem}
+.footer-brand{max-width:270px}
+.footer-brand p{font-size:.87rem;color:var(--grey2);line-height:1.65;margin-top:.75rem}
+.footer-links h4{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--grey2);margin-bottom:1rem}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-links a{font-size:.88rem;color:var(--grey);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--blue-light)}
+.footer-socials{display:flex;gap:10px;margin-top:1rem}
+.social-btn{width:36px;height:36px;border-radius:7px;background:rgba(255,255,255,.05);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;text-decoration:none}
+.social-btn:hover{background:rgba(37,99,235,.15);border-color:var(--border2)}
+.social-btn svg{width:15px;height:15px;fill:var(--grey)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem}
+.footer-bottom p{font-size:.8rem;color:var(--grey2)}
 
-@media(max-width:900px){ .comp-showcase { grid-template-columns: 1fr 1fr; } }
-@media(max-width:600px){ .comp-showcase { grid-template-columns: 1fr; } .deca-banner { grid-template-columns: 1fr; } .deca-banner-actions { align-items: flex-start; flex-direction: row; flex-wrap: wrap; } }
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .comps-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+  .cta-banner{grid-template-columns:1fr;grid-template-rows:1fr 1px 1fr}
+  .cta-divider{height:1px;width:auto}
+}
+@media(max-width:700px){
+  .comps-grid{grid-template-columns:1fr}
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+  .photo-slider{height:380px}
+  .cta-half{padding:28px 24px}
+}
+@media(max-width:480px){
+  .photo-slider{height:320px}
+}
 </style>
 </head>
 <body>
 
+<!-- ── NAV ── -->
 <nav id="navbar">
   <a href="index.html" class="nav-logo">
     <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -208,7 +420,7 @@
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ── HERO ── -->
 <section id="home" class="hero-section">
   <canvas class="hero-canvas" id="heroCanvas"></canvas>
   <div class="hero-inner">
@@ -222,139 +434,298 @@
   </div>
 </section>
 
-<!-- SCROLLING TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-track">
-    <!-- First set -->
-    <div class="ticker-item"><span class="badge badge-open">Open</span> Entrepreneurship Challenge <span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="badge badge-open">Open</span> Business Case Competition <span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="badge badge-open">Open</span> English Writing Competition <span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="badge badge-soon">Coming Soon</span> Science Showcase <span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="badge badge-soon">Coming Soon</span> Mathematics Challenge <span class="ticker-dot"></span></div>
-    <div class="ticker-item">🍁 &nbsp;Compete Nationally &nbsp;<span class="ticker-dot"></span></div>
-    <div class="ticker-item">🏆 &nbsp;Win Cash Prizes &nbsp;<span class="ticker-dot"></span></div>
-    <div class="ticker-item">📜 &nbsp;Official Certificates &nbsp;<span class="ticker-dot"></span></div>
-    <!-- Duplicate for seamless loop -->
-    <div class="ticker-item"><span class="badge badge-open">Open</span> Entrepreneurship Challenge <span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="badge badge-open">Open</span> Business Case Competition <span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="badge badge-open">Open</span> English Writing Competition <span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="badge badge-soon">Coming Soon</span> Science Showcase <span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="badge badge-soon">Coming Soon</span> Mathematics Challenge <span class="ticker-dot"></span></div>
-    <div class="ticker-item">🍁 &nbsp;Compete Nationally &nbsp;<span class="ticker-dot"></span></div>
-    <div class="ticker-item">🏆 &nbsp;Win Cash Prizes &nbsp;<span class="ticker-dot"></span></div>
-    <div class="ticker-item">📜 &nbsp;Official Certificates &nbsp;<span class="ticker-dot"></span></div>
+<!-- ── PHOTO SLIDER ── -->
+<div class="photo-slider" id="photoSlider">
+  <div class="slider-track" id="sliderTrack">
+
+    <div class="slide active">
+      <img src="pic.png" alt="CSA Competition"/>
+      <div class="slide-overlay">
+        <div class="slide-content">
+          <div class="slide-tag" style="--slide-color:var(--c-entrep);background:rgba(249,115,22,.12);border-color:rgba(249,115,22,.35);color:#fb923c">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--c-entrep);display:inline-block"></span>
+            Entrepreneurship
+          </div>
+          <h2>Build the Business of Tomorrow</h2>
+          <p>Pitch your ideas to real judges and compete alongside Canada's brightest student entrepreneurs.</p>
+          <a href="competitions.html#register" class="slide-cta" style="--slide-color:var(--c-entrep)">Register — $20</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="pic.png" alt="CSA Business Competition"/>
+      <div class="slide-overlay">
+        <div class="slide-content">
+          <div class="slide-tag" style="--slide-color:var(--c-biz);background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.35);color:#c084fc">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--c-biz);display:inline-block"></span>
+            Business Case
+          </div>
+          <h2>Analyze. Strategize. Present.</h2>
+          <p>Tackle real-world scenarios and sharpen the analytical thinking that top companies look for.</p>
+          <a href="competitions.html#register" class="slide-cta" style="--slide-color:var(--c-biz)">Register — $20</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="pic.png" alt="CSA English Competition"/>
+      <div class="slide-overlay">
+        <div class="slide-content">
+          <div class="slide-tag" style="--slide-color:var(--c-english);background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.35);color:#34d399">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--c-english);display:inline-block"></span>
+            English Writing
+          </div>
+          <h2>Your Voice. National Stage.</h2>
+          <p>Essays, public speaking, and creative writing judged by professionals who care about craft.</p>
+          <a href="competitions.html#register" class="slide-cta" style="--slide-color:var(--c-english)">Register — $20</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="pic.png" alt="CSA Science Showcase"/>
+      <div class="slide-overlay">
+        <div class="slide-content">
+          <div class="slide-tag" style="--slide-color:var(--c-science);background:rgba(6,182,212,.12);border-color:rgba(6,182,212,.35);color:#22d3ee">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--c-science);display:inline-block"></span>
+            Science Showcase
+          </div>
+          <h2>Where Discovery Meets Competition</h2>
+          <p>Present your research and STEM projects to a national audience. Coming soon.</p>
+          <a href="competitions.html" class="slide-cta" style="--slide-color:var(--c-science)">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="pic.png" alt="CSA Mathematics Challenge"/>
+      <div class="slide-overlay">
+        <div class="slide-content">
+          <div class="slide-tag" style="--slide-color:var(--c-math);background:rgba(244,63,94,.12);border-color:rgba(244,63,94,.35);color:#fb7185">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--c-math);display:inline-block"></span>
+            Mathematics
+          </div>
+          <h2>Problem Sets That Push Limits</h2>
+          <p>Speed rounds, proof challenges, and collaborative math — for every level. Coming soon.</p>
+          <a href="competitions.html" class="slide-cta" style="--slide-color:var(--c-math)">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Dots -->
+  <div class="slider-dots" id="sliderDots">
+    <button class="slider-dot active"></button>
+    <button class="slider-dot"></button>
+    <button class="slider-dot"></button>
+    <button class="slider-dot"></button>
+    <button class="slider-dot"></button>
+  </div>
+
+  <!-- Arrows -->
+  <div class="slider-arrows">
+    <button class="slider-arrow" id="sliderPrev">&#8592;</button>
+    <button class="slider-arrow" id="sliderNext">&#8594;</button>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="slider-progress" id="sliderProgress"></div>
+</div>
+
+<!-- ── STATS STRIP ── -->
+<div class="stats-strip">
+  <div class="stat-cell">
+    <div class="stat-num-big"><span class="accent">3</span>+</div>
+    <div class="stat-label-sm">Events Open Now</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num-big"><span class="accent">$</span>20</div>
+    <div class="stat-label-sm">Per Event</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num-big">100<span class="accent">%</span></div>
+    <div class="stat-label-sm">Student-Led</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num-big"><span class="accent">🍁</span></div>
+    <div class="stat-label-sm">National Reach</div>
   </div>
 </div>
 
-<!-- ABOUT / MISSION -->
-<section id="about" style="background:var(--bg2);border-bottom:1px solid var(--border)">
-  <div style="max-width:560px">
-    <div class="section-label">Why CSA?</div>
-    <h2 class="section-title">Built by Students,<br/>for Students</h2>
-    <p class="section-sub">Every Canadian student deserves world-class academic experiences — regardless of background, city, or school.</p>
-  </div>
-  <div class="stats-grid">
-    <div class="stat-item">
-      <div class="stat-num"><span class="accent">🍁</span> National</div>
-      <div class="stat-label">Reach Across Canada</div>
+<!-- ── COMPETITIONS ── -->
+<section class="comps-section" style="padding:96px 6%">
+  <div class="comps-header">
+    <div>
+      <div class="section-label">Events</div>
+      <h2 class="section-title" style="margin-bottom:.5rem">All Competitions</h2>
+      <p class="section-sub">Five disciplines. One platform. Open to every Canadian student.</p>
     </div>
-    <div class="stat-item">
-      <div class="stat-num"><span class="accent">3</span>+</div>
-      <div class="stat-label">Unique Events</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">100<span class="accent">%</span></div>
-      <div class="stat-label">Student-Led</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num"><span class="accent">$</span>20</div>
-      <div class="stat-label">To Participate</div>
+    <div class="comps-header-right">
+      <a href="competitions.html">View all details &amp; register →</a>
     </div>
   </div>
 
-  <!-- Competition showcase grid -->
-  <div class="comp-showcase">
-    <div class="comp-showcase-card">
-      <div class="comp-card-num">01</div>
-      <div class="comp-card-title">Entrepreneurship Challenge</div>
-      <div class="comp-card-desc">Pitch ideas and build business plans in a startup-style format with real mentorship.</div>
-      <span class="comp-card-status status-open">● Open Now</span>
+  <div class="comps-grid">
+
+    <div class="comp-card card-entrep">
+      <div class="comp-card-top"></div>
+      <div class="comp-card-body">
+        <div class="comp-card-header">
+          <div class="comp-card-icon-wrap">🚀</div>
+          <span class="comp-card-badge badge-open">● Open</span>
+        </div>
+        <h3>Entrepreneurship Challenge</h3>
+        <p>Pitch your startup idea, build a business plan, and present to a panel of judges. Real mentorship, real stakes.</p>
+        <div class="comp-card-footer">
+          <span class="comp-card-num">Event 01</span>
+          <a href="competitions.html#register" class="comp-card-link">Register →</a>
+        </div>
+      </div>
     </div>
-    <div class="comp-showcase-card">
-      <div class="comp-card-num">02</div>
-      <div class="comp-card-title">Business Case Competition</div>
-      <div class="comp-card-desc">Case studies, financial analysis, and strategy challenges for sharp analytical minds.</div>
-      <span class="comp-card-status status-open">● Open Now</span>
+
+    <div class="comp-card card-biz">
+      <div class="comp-card-top"></div>
+      <div class="comp-card-body">
+        <div class="comp-card-header">
+          <div class="comp-card-icon-wrap">📊</div>
+          <span class="comp-card-badge badge-open">● Open</span>
+        </div>
+        <h3>Business Case Competition</h3>
+        <p>Tackle real-world business scenarios with financial analysis and strategic thinking under competition conditions.</p>
+        <div class="comp-card-footer">
+          <span class="comp-card-num">Event 02</span>
+          <a href="competitions.html#register" class="comp-card-link">Register →</a>
+        </div>
+      </div>
     </div>
-    <div class="comp-showcase-card">
-      <div class="comp-card-num">03</div>
-      <div class="comp-card-title">English Writing Competition</div>
-      <div class="comp-card-desc">Essays, public speaking, and creative writing showcases for every voice.</div>
-      <span class="comp-card-status status-open">● Open Now</span>
+
+    <div class="comp-card card-english">
+      <div class="comp-card-top"></div>
+      <div class="comp-card-body">
+        <div class="comp-card-header">
+          <div class="comp-card-icon-wrap">✍️</div>
+          <span class="comp-card-badge badge-open">● Open</span>
+        </div>
+        <h3>English Writing Competition</h3>
+        <p>Essays, public speaking, and creative writing. Every voice and every style has a place in this event.</p>
+        <div class="comp-card-footer">
+          <span class="comp-card-num">Event 03</span>
+          <a href="competitions.html#register" class="comp-card-link">Register →</a>
+        </div>
+      </div>
     </div>
-    <div class="comp-showcase-card">
-      <div class="comp-card-num">04</div>
-      <div class="comp-card-title">Science Showcase</div>
-      <div class="comp-card-desc">Research presentations and STEM problem-solving for science-minded students.</div>
-      <span class="comp-card-status status-soon">Coming Soon</span>
+
+    <div class="comp-card card-science">
+      <div class="comp-card-top"></div>
+      <div class="comp-card-body">
+        <div class="comp-card-header">
+          <div class="comp-card-icon-wrap">🔬</div>
+          <span class="comp-card-badge badge-soon">Coming Soon</span>
+        </div>
+        <h3>Science Showcase</h3>
+        <p>Research presentations and STEM problem-solving for students who want to push the boundaries of discovery.</p>
+        <div class="comp-card-footer">
+          <span class="comp-card-num">Event 04</span>
+          <a href="competitions.html" class="comp-card-link">Learn More →</a>
+        </div>
+      </div>
     </div>
-    <div class="comp-showcase-card">
-      <div class="comp-card-num">05</div>
-      <div class="comp-card-title">Mathematics Challenge</div>
-      <div class="comp-card-desc">Problem sets and speed rounds spanning algebra, statistics, and calculus.</div>
-      <span class="comp-card-status status-soon">Coming Soon</span>
+
+    <div class="comp-card card-math">
+      <div class="comp-card-top"></div>
+      <div class="comp-card-body">
+        <div class="comp-card-header">
+          <div class="comp-card-icon-wrap">🧮</div>
+          <span class="comp-card-badge badge-soon">Coming Soon</span>
+        </div>
+        <h3>Mathematics Challenge</h3>
+        <p>Problem sets and speed rounds spanning algebra, statistics, and calculus. Every skill level is welcome.</p>
+        <div class="comp-card-footer">
+          <span class="comp-card-num">Event 05</span>
+          <a href="competitions.html" class="comp-card-link">Learn More →</a>
+        </div>
+      </div>
     </div>
-    <div class="comp-showcase-card">
-      <div class="comp-card-num">+</div>
-      <div class="comp-card-title">More Coming</div>
-      <div class="comp-card-desc">New disciplines added every semester. Follow us for the latest announcements.</div>
-      <span class="comp-card-status status-soon">Future Events</span>
+
+    <div class="comp-card card-more">
+      <div class="comp-card-top"></div>
+      <div class="comp-card-body">
+        <div class="comp-card-header">
+          <div class="comp-card-icon-wrap">🌍</div>
+          <span class="comp-card-badge badge-future">Future</span>
+        </div>
+        <h3>More Disciplines</h3>
+        <p>New events added every semester. Follow us on Instagram to be the first to hear about what's next.</p>
+        <div class="comp-card-footer">
+          <span class="comp-card-num">Coming Up</span>
+          <a href="https://www.instagram.com/csa.official2026" target="_blank" class="comp-card-link">Follow Us →</a>
+        </div>
+      </div>
     </div>
+
   </div>
 
-  <!-- CTA Banner -->
-  <div class="deca-banner">
-    <div class="deca-banner-text">
-      <h3>Ready to compete at the national level?</h3>
-      <p>Registration is open for 3 events right now. Only $20 per event. Certificates for every participant.</p>
+  <!-- Split CTA -->
+  <div class="cta-banner">
+    <div class="cta-half">
+      <div>
+        <div class="section-label" style="margin-bottom:.5rem">Ready to compete?</div>
+        <h3>Three events open for registration right now.</h3>
+      </div>
+      <p>Only $20 per event. Fully online. Official certificate for every participant. Cash prizes for top performers.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="competitions.html#register" class="btn-primary" style="padding:12px 28px;font-size:.88rem">Register — $20</a>
+        <a href="competitions.html" class="btn-outline" style="padding:12px 28px;font-size:.88rem">See All Events</a>
+      </div>
     </div>
-    <div class="deca-banner-actions">
-      <a href="competitions.html#register" class="btn-primary">Register — $20</a>
-      <a href="competitions.html" class="btn-outline" style="padding:12px 28px;font-size:.88rem">See All Events</a>
+    <div class="cta-divider"></div>
+    <div class="cta-half">
+      <div>
+        <div class="section-label" style="margin-bottom:.5rem">Want to get involved?</div>
+        <h3>Join the team behind Canada's student competitions.</h3>
+      </div>
+      <p>We're looking for passionate students to help with events, marketing, judging, and more. Fully remote and flexible.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="contact.html" class="btn-primary" style="padding:12px 28px;font-size:.88rem;background:var(--bg2);border:1.5px solid var(--border2);color:var(--blue-light)">Apply to Join</a>
+        <a href="about.html" class="btn-outline" style="padding:12px 28px;font-size:.88rem">Learn More</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- WHAT WE OFFER -->
-<section style="background:var(--bg)">
+<!-- ── WHY CSA ── -->
+<section class="why-section" style="padding:96px 6%">
   <div class="section-label">The CSA Difference</div>
-  <h2 class="section-title">What Sets Us Apart</h2>
-  <p class="section-sub">We're not just another competition — we're a platform built for your success.</p>
-  <div class="info-grid" style="margin-top:4rem">
-    <div class="info-card">
-      <div class="info-icon">🎯</div>
-      <h3>Our Mission</h3>
-      <p>Creating accessible, high-impact academic competitions that prepare the next generation for academic and professional success across Canada.</p>
+  <h2 class="section-title">Why Compete With Us?</h2>
+  <p class="section-sub">We're not just another competition. A platform built by students who understand what you actually need.</p>
+
+  <div class="why-grid">
+    <div class="why-card" style="--card-accent:var(--c-entrep)">
+      <div class="why-icon">🎯</div>
+      <h3>Accessible to Everyone</h3>
+      <p>Only $20 per event, fully online. A student in Halifax has the same shot as one in Vancouver.</p>
     </div>
-    <div class="info-card">
-      <div class="info-icon">🌍</div>
-      <h3>Who We Are</h3>
-      <p>CSA is a national, student-run organization dedicated to providing high-quality academic enrichment programs for students at every level.</p>
+    <div class="why-card" style="--card-accent:var(--c-biz)">
+      <div class="why-icon">🏆</div>
+      <h3>Real Rewards</h3>
+      <p>Cash prizes for top performers. Official certificates for every participant. Expert judge feedback on every entry.</p>
     </div>
-    <div class="info-card">
-      <div class="info-icon">💡</div>
-      <h3>What We Offer</h3>
-      <p>Competitions in Entrepreneurship, Business, Science, English, Mathematics, and more — with real prizes, certificates, and mentorship.</p>
+    <div class="why-card" style="--card-accent:var(--c-english)">
+      <div class="why-icon">🤝</div>
+      <h3>100% Student-Led</h3>
+      <p>Every person at CSA is a student. We know what you need because we've been in your exact position.</p>
     </div>
-    <div class="info-card">
-      <div class="info-icon">🤝</div>
-      <h3>Get Involved</h3>
-      <p>Compete in events, submit your work for judging, or apply to join our team and help shape Canada's next generation of leaders.</p>
+    <div class="why-card" style="--card-accent:var(--c-science)">
+      <div class="why-icon">🇨🇦</div>
+      <h3>National Stage</h3>
+      <p>Compete against students from coast to coast. Your work is seen, scored, and celebrated nationally.</p>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -392,11 +763,11 @@
     <div class="footer-links">
       <h4>Events</h4>
       <ul>
-        <li><a href="competitions.html">Entrepreneurship</a></li>
-        <li><a href="competitions.html">Business</a></li>
-        <li><a href="competitions.html">Science</a></li>
-        <li><a href="competitions.html">English</a></li>
-        <li><a href="competitions.html">Mathematics</a></li>
+        <li><a href="competitions.html" style="color:var(--c-entrep)">Entrepreneurship</a></li>
+        <li><a href="competitions.html" style="color:var(--c-biz)">Business Case</a></li>
+        <li><a href="competitions.html" style="color:var(--c-english)">English Writing</a></li>
+        <li><a href="competitions.html" style="color:var(--c-science)">Science Showcase</a></li>
+        <li><a href="competitions.html" style="color:var(--c-math)">Mathematics</a></li>
       </ul>
     </div>
     <div class="footer-links">
@@ -409,11 +780,77 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2025 Canadian Students Association. All rights reserved.</p>
+    <p>&copy; 2025 Canadian Scholars Association. All rights reserved.</p>
     <p>Made by students, for students. <span class="accent">🍁</span></p>
   </div>
 </footer>
 
 <script src="shared.js"></script>
+<script>
+// ── PHOTO SLIDER ──
+(function(){
+  var total   = 5;
+  var current = 0;
+  var timer   = null;
+  var prog    = null;
+  var DELAY   = 5000;
+  var progVal = 0;
+
+  var track   = document.getElementById('sliderTrack');
+  var slides  = track ? track.querySelectorAll('.slide') : [];
+  var dots    = document.querySelectorAll('.slider-dot');
+  var prevBtn = document.getElementById('sliderPrev');
+  var nextBtn = document.getElementById('sliderNext');
+  var progBar = document.getElementById('sliderProgress');
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    if(track) track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    resetProgress();
+  }
+
+  function resetProgress() {
+    clearInterval(prog);
+    progVal = 0;
+    if(progBar) progBar.style.width = '0%';
+    prog = setInterval(function(){
+      progVal += 100 / (DELAY / 100);
+      if(progBar) progBar.style.width = Math.min(progVal, 100) + '%';
+    }, 100);
+  }
+
+  function startAuto() {
+    clearInterval(timer);
+    timer = setInterval(function(){ goTo(current + 1); }, DELAY);
+  }
+
+  if(slides.length) {
+    if(prevBtn) prevBtn.addEventListener('click', function(){ goTo(current - 1); startAuto(); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ goTo(current + 1); startAuto(); });
+    dots.forEach(function(d, i){ d.addEventListener('click', function(){ goTo(i); startAuto(); }); });
+    // Keyboard
+    document.addEventListener('keydown', function(e){
+      if(e.key==='ArrowLeft'){ goTo(current-1); startAuto(); }
+      if(e.key==='ArrowRight'){ goTo(current+1); startAuto(); }
+    });
+    // Touch swipe
+    var startX = 0;
+    var sliderEl = document.getElementById('photoSlider');
+    if(sliderEl){
+      sliderEl.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+      sliderEl.addEventListener('touchend', function(e){
+        var dx = e.changedTouches[0].clientX - startX;
+        if(Math.abs(dx) > 50){ dx < 0 ? goTo(current+1) : goTo(current-1); startAuto(); }
+      }, {passive:true});
+    }
+    startAuto();
+    resetProgress();
+  }
+})();
+</script>
 </body>
 </html>
