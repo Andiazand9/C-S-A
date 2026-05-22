@@ -36,17 +36,17 @@
   ) !important;
 }
 
-/* Toronto skyline — new full-scene SVG covers entire hero */
+/* Toronto skyline anchored to hero bottom */
 .hero-skyline {
   position: absolute;
-  inset: 0;
+  bottom: 0; left: 0; right: 0;
   width: 100%;
-  height: 100%;
   pointer-events: none;
   z-index: 1;
-  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, black 45%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, black 45%);
 }
-.hero-skyline svg { display:block; width:100%; height:100%; }
+.hero-skyline svg { display:block; width:100%; height:auto; min-height:220px; }
 
 /* Layer order inside hero */
 .hero-canvas { z-index: 2 !important; }
@@ -452,368 +452,142 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
 <section id="home" class="hero-section">
   <canvas class="hero-canvas" id="heroCanvas"></canvas>
 
-  <!-- Toronto Skyline SVG — full scene with sky, buildings, water -->
+  <!-- Toronto Skyline SVG Silhouette -->
   <div class="hero-skyline" aria-hidden="true">
-    <svg width="100%" viewBox="0 0 1450 440" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMax meet">
-<title>Toronto skyline at night</title>
-<desc>Silhouette of the Toronto skyline at night showing the CN Tower, major office towers, and waterfront with lit windows reflected in Lake Ontario</desc>
-<defs>
-  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#04060f"/>
-    <stop offset="28%" stop-color="#060c1e"/>
-    <stop offset="58%" stop-color="#091430"/>
-    <stop offset="80%" stop-color="#0c1a3e"/>
-    <stop offset="100%" stop-color="#0f2050"/>
-  </linearGradient>
-  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#0d1e48"/>
-    <stop offset="100%" stop-color="#060d24"/>
-  </linearGradient>
-  <radialGradient id="cnGlow" cx="50%" cy="100%" r="80%">
-    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.22"/>
-    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0"/>
-  </radialGradient>
-  <radialGradient id="cityAura" cx="50%" cy="100%" r="60%">
-    <stop offset="0%" stop-color="#1e3a6e" stop-opacity="0.25"/>
-    <stop offset="100%" stop-color="#1e3a6e" stop-opacity="0"/>
-  </radialGradient>
-  <linearGradient id="buildingFade" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#080e28"/>
-    <stop offset="100%" stop-color="#0a1230"/>
-  </linearGradient>
-  <linearGradient id="cnTowerGrad" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#0c1428"/>
-    <stop offset="100%" stop-color="#111b3a"/>
-  </linearGradient>
-  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-    <feGaussianBlur stdDeviation="3" result="blur"/>
-    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-  <clipPath id="skyClip">
-    <rect x="0" y="0" width="1440" height="420"/>
-  </clipPath>
-</defs>
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(59,130,246,0)" />
+          <stop offset="100%" stop-color="rgba(7,9,26,0.7)" />
+        </linearGradient>
+        <!-- CN Tower glow -->
+        <radialGradient id="cnGlow" cx="50%" cy="0%" r="60%">
+          <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
 
-<!-- Sky -->
-<rect width="1440" height="420" fill="url(#sky)"/>
+      <!-- Sky atmosphere glow behind CN Tower -->
+      <ellipse cx="720" cy="60" rx="260" ry="180" fill="url(#cnGlow)"/>
 
-<!-- Stars -->
-<circle cx="45" cy="18" r="0.8" fill="#fff" opacity="0.5"/>
-<circle cx="112" cy="35" r="0.7" fill="#fff" opacity="0.4"/>
-<circle cx="178" cy="12" r="0.9" fill="#fff" opacity="0.6"/>
-<circle cx="256" cy="28" r="0.6" fill="#fff" opacity="0.35"/>
-<circle cx="320" cy="8" r="0.8" fill="#fff" opacity="0.5"/>
-<circle cx="390" cy="22" r="0.7" fill="#fff" opacity="0.45"/>
-<circle cx="450" cy="42" r="0.6" fill="#fff" opacity="0.3"/>
-<circle cx="510" cy="15" r="0.8" fill="#fff" opacity="0.55"/>
-<circle cx="90" cy="55" r="0.6" fill="#fff" opacity="0.3"/>
-<circle cx="200" cy="48" r="0.7" fill="#fff" opacity="0.4"/>
-<circle cx="350" cy="52" r="0.5" fill="#fff" opacity="0.35"/>
-<circle cx="160" cy="68" r="0.6" fill="#fff" opacity="0.28"/>
-<circle cx="840" cy="16" r="0.8" fill="#fff" opacity="0.5"/>
-<circle cx="920" cy="32" r="0.7" fill="#fff" opacity="0.4"/>
-<circle cx="980" cy="10" r="0.9" fill="#fff" opacity="0.55"/>
-<circle cx="1060" cy="26" r="0.6" fill="#fff" opacity="0.35"/>
-<circle cx="1130" cy="44" r="0.8" fill="#fff" opacity="0.45"/>
-<circle cx="1200" cy="18" r="0.7" fill="#fff" opacity="0.5"/>
-<circle cx="1280" cy="38" r="0.6" fill="#fff" opacity="0.3"/>
-<circle cx="1360" cy="14" r="0.8" fill="#fff" opacity="0.52"/>
-<circle cx="1400" cy="50" r="0.6" fill="#fff" opacity="0.33"/>
-<circle cx="880" cy="58" r="0.6" fill="#fff" opacity="0.3"/>
-<circle cx="1050" cy="62" r="0.5" fill="#fff" opacity="0.28"/>
+      <!-- TORONTO SKYLINE — right to left, realistic silhouette -->
+      <!-- Far background buildings (lightest) -->
+      <rect x="0"   y="210" width="40"  height="110" fill="rgba(15,20,60,0.55)" rx="1"/>
+      <rect x="38"  y="225" width="30"  height="95"  fill="rgba(15,20,60,0.5)"  rx="1"/>
+      <rect x="66"  y="200" width="50"  height="120" fill="rgba(15,20,60,0.55)" rx="1"/>
+      <rect x="114" y="215" width="35"  height="105" fill="rgba(15,20,60,0.5)"  rx="1"/>
+      <rect x="147" y="195" width="55"  height="125" fill="rgba(15,20,60,0.55)" rx="1"/>
 
-<!-- City ambient glow low on horizon -->
-<ellipse cx="720" cy="310" rx="600" ry="120" fill="url(#cityAura)"/>
+      <!-- Midground buildings left cluster -->
+      <rect x="200" y="185" width="48"  height="135" fill="rgba(12,16,50,0.65)" rx="1"/>
+      <rect x="246" y="195" width="32"  height="125" fill="rgba(12,16,50,0.6)"  rx="1"/>
+      <rect x="276" y="170" width="60"  height="150" fill="rgba(12,16,50,0.7)"  rx="1"/>
+      <!-- Small antenna on tall building -->
+      <rect x="302" y="155" width="4"   height="20"  fill="rgba(12,16,50,0.7)"/>
+      <rect x="334" y="190" width="42"  height="130" fill="rgba(12,16,50,0.65)" rx="1"/>
+      <rect x="374" y="175" width="55"  height="145" fill="rgba(12,16,50,0.7)"  rx="1"/>
+      <rect x="427" y="200" width="38"  height="120" fill="rgba(12,16,50,0.6)"  rx="1"/>
+      <rect x="463" y="165" width="68"  height="155" fill="rgba(12,16,50,0.72)" rx="1"/>
+      <!-- Antenna -->
+      <rect x="494" y="150" width="5"   height="18"  fill="rgba(12,16,50,0.72)"/>
 
-<!-- CN Tower glow -->
-<ellipse cx="620" cy="280" rx="180" ry="100" fill="url(#cnGlow)"/>
+      <!-- Scotia Plaza / tall office block left of CN -->
+      <rect x="528" y="140" width="58"  height="180" fill="rgba(10,14,46,0.78)" rx="1"/>
+      <rect x="538" y="132" width="38"  height="12"  fill="rgba(10,14,46,0.78)" rx="1"/>
+      <rect x="584" y="165" width="44"  height="155" fill="rgba(10,14,46,0.72)" rx="1"/>
+      <rect x="626" y="150" width="52"  height="170" fill="rgba(10,14,46,0.78)" rx="1"/>
+      <!-- small top detail -->
+      <rect x="645" y="142" width="14"  height="10"  fill="rgba(10,14,46,0.78)"/>
 
-<!-- ═══════════════════════════════ FAR BACKGROUND — low opacity ═══════ -->
-<!-- Distant low buildings far left -->
-<rect x="0" y="268" width="38" height="62" fill="#0b1228" rx="1"/>
-<rect x="36" y="278" width="28" height="52" fill="#0b1228" rx="1"/>
-<rect x="62" y="260" width="44" height="70" fill="#0c1330" rx="1"/>
-<rect x="104" y="272" width="32" height="58" fill="#0b1228" rx="1"/>
-<rect x="134" y="252" width="50" height="78" fill="#0c1330" rx="1"/>
-<rect x="182" y="265" width="36" height="65" fill="#0b1228" rx="1"/>
-<rect x="216" y="248" width="55" height="82" fill="#0c1330" rx="1"/>
-<rect x="269" y="270" width="30" height="60" fill="#0b1228" rx="1"/>
-<!-- Distant far right -->
-<rect x="1160" y="265" width="40" height="65" fill="#0b1228" rx="1"/>
-<rect x="1198" y="255" width="52" height="75" fill="#0c1330" rx="1"/>
-<rect x="1248" y="270" width="35" height="60" fill="#0b1228" rx="1"/>
-<rect x="1281" y="250" width="48" height="80" fill="#0c1330" rx="1"/>
-<rect x="1327" y="268" width="38" height="62" fill="#0b1228" rx="1"/>
-<rect x="1363" y="258" width="45" height="72" fill="#0c1330" rx="1"/>
-<rect x="1406" y="272" width="34" height="58" fill="#0b1228" rx="1"/>
+      <!-- ── CN TOWER ── -->
+      <!-- Tower base / podium -->
+      <rect x="696" y="230" width="46"  height="90"  fill="rgba(8,12,38,0.92)" rx="1"/>
+      <!-- Tower main shaft — wide at base tapering -->
+      <polygon points="706,230 730,230 726,130 718,130" fill="rgba(8,12,38,0.92)"/>
+      <!-- Tower neck -->
+      <rect x="716" y="90"  width="12"  height="44"  fill="rgba(8,12,38,0.95)"/>
+      <!-- Observation pod (SkyPod) -->
+      <ellipse cx="722" cy="88" rx="18" ry="7"       fill="rgba(8,12,38,0.95)"/>
+      <!-- Upper needle -->
+      <rect x="720" y="30"  width="4"   height="62"  fill="rgba(8,12,38,0.95)"/>
+      <!-- Needle tip light -->
+      <circle cx="722" cy="28" r="2.5" fill="#3b82f6" opacity="0.9"/>
+      <!-- Subtle glow on needle tip -->
+      <circle cx="722" cy="28" r="6"   fill="#3b82f6" opacity="0.15"/>
 
-<!-- ═══════════════════════════════ MIDGROUND BUILDINGS ═══════════════ -->
+      <!-- Buildings right of CN Tower -->
+      <rect x="742" y="160" width="50"  height="160" fill="rgba(10,14,46,0.75)" rx="1"/>
+      <rect x="750" y="152" width="34"  height="10"  fill="rgba(10,14,46,0.75)"/>
+      <rect x="790" y="175" width="44"  height="145" fill="rgba(10,14,46,0.7)"  rx="1"/>
+      <rect x="832" y="155" width="62"  height="165" fill="rgba(10,14,46,0.78)" rx="1"/>
+      <!-- Antenna -->
+      <rect x="860" y="146" width="5"   height="12"  fill="rgba(10,14,46,0.78)"/>
+      <rect x="892" y="170" width="48"  height="150" fill="rgba(10,14,46,0.72)" rx="1"/>
 
-<!-- Left side cluster — mid buildings -->
-<rect x="295" y="232" width="42" height="98" fill="#0d1535" rx="1"/>
-<rect x="335" y="242" width="34" height="88" fill="#0c1430" rx="1"/>
-<rect x="367" y="218" width="56" height="112" fill="#0e1638" rx="1"/>
-<!-- top stepback -->
-<rect x="373" y="210" width="44" height="10" fill="#0e1638" rx="1"/>
-<rect x="419" y="238" width="38" height="92" fill="#0d1535" rx="1"/>
-<rect x="455" y="225" width="48" height="105" fill="#0e1638" rx="1"/>
-<rect x="461" y="216" width="36" height="12" fill="#0e1638"/>
-<!-- small antenna -->
-<rect x="477" y="200" width="3" height="18" fill="#0e1638"/>
+      <!-- Right cluster -->
+      <rect x="938" y="185" width="55"  height="135" fill="rgba(12,16,50,0.68)" rx="1"/>
+      <rect x="991" y="195" width="40"  height="125" fill="rgba(12,16,50,0.62)" rx="1"/>
+      <rect x="1029"y="175" width="62"  height="145" fill="rgba(12,16,50,0.7)"  rx="1"/>
+      <rect x="1047"y="165" width="18"  height="12"  fill="rgba(12,16,50,0.7)"/>
+      <rect x="1089"y="190" width="50"  height="130" fill="rgba(12,16,50,0.65)" rx="1"/>
+      <rect x="1137"y="200" width="38"  height="120" fill="rgba(12,16,50,0.6)"  rx="1"/>
+      <rect x="1173"y="185" width="55"  height="135" fill="rgba(12,16,50,0.65)" rx="1"/>
 
-<!-- TD Centre cluster — 3 dark glass towers (left of CN) -->
-<!-- TD North Tower -->
-<rect x="500" y="180" width="62" height="150" fill="#0f1840" rx="1"/>
-<rect x="508" y="172" width="46" height="10" fill="#0f1840"/>
-<!-- stepback detail -->
-<rect x="516" y="162" width="30" height="12" fill="#0f1840"/>
-<rect x="562" y="196" width="44" height="134" fill="#0e1739" rx="1"/>
-<rect x="604" y="185" width="50" height="145" fill="#0f1840" rx="1"/>
-<rect x="612" y="176" width="34" height="11" fill="#0f1840"/>
+      <!-- Far right buildings -->
+      <rect x="1226"y="205" width="44"  height="115" fill="rgba(15,20,60,0.55)" rx="1"/>
+      <rect x="1268"y="215" width="36"  height="105" fill="rgba(15,20,60,0.5)"  rx="1"/>
+      <rect x="1302"y="200" width="52"  height="120" fill="rgba(15,20,60,0.55)" rx="1"/>
+      <rect x="1352"y="210" width="40"  height="110" fill="rgba(15,20,60,0.5)"  rx="1"/>
+      <rect x="1390"y="220" width="50"  height="100" fill="rgba(15,20,60,0.48)" rx="1"/>
 
-<!-- Scotia Plaza — stepped crown, tallest building left of CN -->
-<rect x="652" y="155" width="64" height="175" fill="#10193f" rx="1"/>
-<!-- Scotia stepped crown -->
-<rect x="660" y="145" width="48" height="12" fill="#10193f" rx="1"/>
-<rect x="668" y="134" width="32" height="13" fill="#10193f" rx="1"/>
-<rect x="676" y="124" width="18" height="12" fill="#10193f" rx="1"/>
-<!-- red crown detail (telecoms) -->
-<rect x="682" y="112" width="6" height="14" fill="#1a1f3a"/>
+      <!-- Ground / waterfront base -->
+      <rect x="0" y="316" width="1440" height="8" fill="rgba(7,9,26,0.9)"/>
 
-<!-- First Canadian Place — tallest, just left of CN -->
-<rect x="722" y="128" width="58" height="202" fill="#111a42" rx="1"/>
-<!-- FCP white marble facade suggestion — slight lighter tone at top -->
-<rect x="728" y="128" width="46" height="30" fill="#131e48"/>
-<!-- FCP top mast/antenna -->
-<rect x="748" y="108" width="6" height="22" fill="#111a42"/>
-<rect x="750" y="98" width="2" height="12" fill="#1a2558"/>
+      <!-- Overlay gradient fading to hero bg at bottom -->
+      <rect x="0" y="0" width="1440" height="320" fill="url(#skyGrad)"/>
 
-<!-- ═══════════════════════════════ CN TOWER (centrepiece) ═══════════ -->
-<!-- Rogers Centre dome — left base of CN Tower -->
-<ellipse cx="590" cy="330" rx="68" ry="18" fill="#0d1535"/>
-<rect x="525" y="314" width="130" height="20" fill="#0d1535" rx="2"/>
-<!-- dome ribs suggestion -->
-<path d="M522,314 Q590,290 658,314" stroke="#111b42" stroke-width="1.5" fill="none" opacity="0.6"/>
-<path d="M540,314 Q590,296 640,314" stroke="#111b42" stroke-width="1" fill="none" opacity="0.4"/>
+      <!-- Window lights scattered across buildings -->
+      <!-- Left cluster windows -->
+      <rect x="208" y="195" width="5" height="4" fill="rgba(180,200,255,0.35)" rx="1"/>
+      <rect x="220" y="205" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
+      <rect x="208" y="215" width="5" height="4" fill="rgba(180,200,255,0.4)"  rx="1"/>
+      <rect x="283" y="182" width="5" height="4" fill="rgba(180,200,255,0.35)" rx="1"/>
+      <rect x="295" y="195" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
+      <rect x="283" y="210" width="5" height="4" fill="rgba(180,200,255,0.38)" rx="1"/>
+      <rect x="345" y="200" width="5" height="4" fill="rgba(180,200,255,0.32)" rx="1"/>
+      <rect x="380" y="185" width="5" height="4" fill="rgba(180,200,255,0.36)" rx="1"/>
+      <rect x="392" y="200" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
+      <rect x="472" y="175" width="5" height="4" fill="rgba(180,200,255,0.38)" rx="1"/>
+      <rect x="484" y="188" width="5" height="4" fill="rgba(180,200,255,0.33)" rx="1"/>
+      <rect x="472" y="200" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
+      <!-- Scotia / tall left buildings -->
+      <rect x="535" y="150" width="5" height="4" fill="rgba(200,215,255,0.4)"  rx="1"/>
+      <rect x="548" y="165" width="5" height="4" fill="rgba(200,215,255,0.35)" rx="1"/>
+      <rect x="535" y="180" width="5" height="4" fill="rgba(200,215,255,0.38)" rx="1"/>
+      <rect x="548" y="195" width="5" height="4" fill="rgba(200,215,255,0.3)"  rx="1"/>
+      <rect x="635" y="160" width="5" height="4" fill="rgba(200,215,255,0.4)"  rx="1"/>
+      <rect x="648" y="175" width="5" height="4" fill="rgba(200,215,255,0.35)" rx="1"/>
+      <rect x="635" y="192" width="5" height="4" fill="rgba(200,215,255,0.38)" rx="1"/>
+      <!-- Right of CN Tower -->
+      <rect x="750" y="172" width="5" height="4" fill="rgba(180,200,255,0.36)" rx="1"/>
+      <rect x="762" y="186" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
+      <rect x="750" y="200" width="5" height="4" fill="rgba(180,200,255,0.38)" rx="1"/>
+      <rect x="840" y="165" width="5" height="4" fill="rgba(180,200,255,0.4)"  rx="1"/>
+      <rect x="855" y="180" width="5" height="4" fill="rgba(180,200,255,0.33)" rx="1"/>
+      <rect x="840" y="196" width="5" height="4" fill="rgba(180,200,255,0.36)" rx="1"/>
+      <rect x="900" y="180" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
+      <rect x="912" y="195" width="5" height="4" fill="rgba(180,200,255,0.35)" rx="1"/>
+      <!-- Right cluster -->
+      <rect x="946" y="195" width="5" height="4" fill="rgba(180,200,255,0.32)" rx="1"/>
+      <rect x="960" y="208" width="5" height="4" fill="rgba(180,200,255,0.28)" rx="1"/>
+      <rect x="1038"y="185" width="5" height="4" fill="rgba(180,200,255,0.35)" rx="1"/>
+      <rect x="1052"y="200" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
+      <rect x="1096"y="200" width="5" height="4" fill="rgba(180,200,255,0.32)" rx="1"/>
+      <rect x="1110"y="215" width="5" height="4" fill="rgba(180,200,255,0.28)" rx="1"/>
+      <rect x="1182"y="195" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
 
-<!-- CN Tower base structure / legs -->
-<polygon points="575,330 615,330 612,260 578,260" fill="url(#cnTowerGrad)"/>
-<!-- Main Y-leg supports (Toronto CN has 3-legged base) -->
-<polygon points="590,330 600,330 598,290 592,290" fill="#0e1840"/>
-
-<!-- CN Tower main tapering shaft -->
-<polygon points="584,260 606,260 601,175 589,175" fill="url(#cnTowerGrad)"/>
-<!-- Shaft taper continues -->
-<polygon points="589,175 601,175 599,135 591,135" fill="#101a40"/>
-
-<!-- CN Tower main deck / LookOut Level pod -->
-<ellipse cx="595" cy="165" rx="24" ry="9" fill="#131e4a"/>
-<rect x="572" y="160" width="46" height="12" fill="#131e4a" rx="3"/>
-<!-- pod windows band -->
-<rect x="575" y="162" width="40" height="4" fill="#1a2858" opacity="0.8"/>
-
-<!-- CN Tower neck above pod -->
-<rect x="591" y="134" width="8" height="28" fill="#0f1840"/>
-
-<!-- Space Deck (upper pod) -->
-<ellipse cx="595" cy="132" rx="14" ry="5" fill="#131e4a"/>
-<rect x="582" y="128" width="26" height="7" fill="#131e4a" rx="2"/>
-
-<!-- Upper antenna shaft -->
-<rect x="593" y="80" width="4" height="50" fill="#0f1840"/>
-<!-- antenna taper -->
-<rect x="594" y="50" width="2" height="32" fill="#101840"/>
-<!-- antenna tip -->
-<rect x="594" y="28" width="2" height="24" fill="#1a2a5a"/>
-
-<!-- Blinking antenna light (top) -->
-<circle cx="595" cy="26" r="3" fill="#3b82f6" opacity="0.95"/>
-<circle cx="595" cy="26" r="7" fill="#3b82f6" opacity="0.2"/>
-<!-- Aviation lights on tower body -->
-<circle cx="595" cy="85" r="1.5" fill="#ef4444" opacity="0.8"/>
-<circle cx="595" cy="120" r="1.5" fill="#f97316" opacity="0.6"/>
-
-<!-- ═══════════════════════════════ RIGHT CLUSTER ═══════════════════ -->
-
-<!-- Bay Adelaide / large office towers right of CN -->
-<rect x="784" y="165" width="58" height="165" fill="#111a42" rx="1"/>
-<rect x="792" y="156" width="42" height="11" fill="#111a42"/>
-<rect x="840" y="178" width="50" height="152" fill="#101840" rx="1"/>
-<rect x="846" y="168" width="38" height="12" fill="#101840"/>
-<!-- Antenna -->
-<rect x="862" y="155" width="3" height="15" fill="#101840"/>
-
-<!-- Brookfield Place (twin towers suggestion) -->
-<rect x="888" y="185" width="46" height="145" fill="#0f1840" rx="1"/>
-<rect x="894" y="177" width="34" height="10" fill="#0f1840"/>
-<rect x="932" y="190" width="44" height="140" fill="#101942" rx="1"/>
-<rect x="938" y="182" width="30" height="10" fill="#101942"/>
-
-<!-- Commerce Court complex -->
-<rect x="974" y="200" width="40" height="130" fill="#0e1739" rx="1"/>
-<rect x="1012" y="192" width="52" height="138" fill="#0f1840" rx="1"/>
-<rect x="1020" y="182" width="36" height="12" fill="#0f1840"/>
-<rect x="1062" y="208" width="36" height="122" fill="#0e1739" rx="1"/>
-
-<!-- Mid-right cluster -->
-<rect x="1096" y="218" width="44" height="112" fill="#0d1535" rx="1"/>
-<rect x="1102" y="208" width="32" height="12" fill="#0d1535"/>
-<rect x="1138" y="225" width="38" height="105" fill="#0c1430" rx="1"/>
-<rect x="1174" y="215" width="48" height="115" fill="#0d1535" rx="1"/>
-<rect x="1180" y="205" width="36" height="12" fill="#0d1535"/>
-
-<!-- ═══════════════════════════════ WINDOW LIGHTS ══════════════════ -->
-<!-- TD North Tower windows -->
-<rect x="506" y="185" width="4" height="3" fill="#b8c8f0" opacity="0.55" rx="0.5"/>
-<rect x="514" y="185" width="4" height="3" fill="#b8c8f0" opacity="0.4" rx="0.5"/>
-<rect x="522" y="185" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="534" y="185" width="4" height="3" fill="#b8c8f0" opacity="0.35" rx="0.5"/>
-<rect x="506" y="196" width="4" height="3" fill="#c8d8ff" opacity="0.45" rx="0.5"/>
-<rect x="522" y="196" width="4" height="3" fill="#b8c8f0" opacity="0.5" rx="0.5"/>
-<rect x="534" y="196" width="4" height="3" fill="#c8d8ff" opacity="0.38" rx="0.5"/>
-<rect x="514" y="207" width="4" height="3" fill="#b8c8f0" opacity="0.42" rx="0.5"/>
-<rect x="530" y="207" width="4" height="3" fill="#c8d8ff" opacity="0.48" rx="0.5"/>
-<rect x="506" y="218" width="4" height="3" fill="#b8c8f0" opacity="0.4" rx="0.5"/>
-<rect x="518" y="218" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="530" y="218" width="4" height="3" fill="#b8c8f0" opacity="0.36" rx="0.5"/>
-<!-- Warm office lights (yellow tint) in TD -->
-<rect x="540" y="190" width="4" height="3" fill="#fde68a" opacity="0.28" rx="0.5"/>
-<rect x="540" y="205" width="4" height="3" fill="#fde68a" opacity="0.22" rx="0.5"/>
-<rect x="540" y="220" width="4" height="3" fill="#fde68a" opacity="0.25" rx="0.5"/>
-
-<!-- Scotia Plaza windows -->
-<rect x="658" y="160" width="4" height="3" fill="#c8d8ff" opacity="0.6" rx="0.5"/>
-<rect x="668" y="160" width="4" height="3" fill="#b8c8f0" opacity="0.45" rx="0.5"/>
-<rect x="678" y="160" width="4" height="3" fill="#c8d8ff" opacity="0.55" rx="0.5"/>
-<rect x="690" y="160" width="4" height="3" fill="#b8c8f0" opacity="0.4" rx="0.5"/>
-<rect x="658" y="172" width="4" height="3" fill="#b8c8f0" opacity="0.5" rx="0.5"/>
-<rect x="672" y="172" width="4" height="3" fill="#c8d8ff" opacity="0.58" rx="0.5"/>
-<rect x="686" y="172" width="4" height="3" fill="#b8c8f0" opacity="0.42" rx="0.5"/>
-<rect x="658" y="184" width="4" height="3" fill="#c8d8ff" opacity="0.52" rx="0.5"/>
-<rect x="670" y="184" width="4" height="3" fill="#b8c8f0" opacity="0.38" rx="0.5"/>
-<rect x="682" y="184" width="4" height="3" fill="#c8d8ff" opacity="0.48" rx="0.5"/>
-<rect x="694" y="184" width="4" height="3" fill="#fde68a" opacity="0.25" rx="0.5"/>
-<rect x="658" y="196" width="4" height="3" fill="#b8c8f0" opacity="0.44" rx="0.5"/>
-<rect x="674" y="196" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="690" y="196" width="4" height="3" fill="#b8c8f0" opacity="0.36" rx="0.5"/>
-<rect x="658" y="210" width="4" height="3" fill="#c8d8ff" opacity="0.45" rx="0.5"/>
-<rect x="670" y="210" width="4" height="3" fill="#b8c8f0" opacity="0.4" rx="0.5"/>
-<rect x="682" y="210" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-
-<!-- First Canadian Place windows (white marble building — bright windows) -->
-<rect x="728" y="136" width="4" height="3" fill="#dde8ff" opacity="0.65" rx="0.5"/>
-<rect x="738" y="136" width="4" height="3" fill="#dde8ff" opacity="0.55" rx="0.5"/>
-<rect x="748" y="136" width="4" height="3" fill="#dde8ff" opacity="0.6" rx="0.5"/>
-<rect x="758" y="136" width="4" height="3" fill="#dde8ff" opacity="0.5" rx="0.5"/>
-<rect x="728" y="148" width="4" height="3" fill="#c8d8ff" opacity="0.58" rx="0.5"/>
-<rect x="740" y="148" width="4" height="3" fill="#dde8ff" opacity="0.62" rx="0.5"/>
-<rect x="752" y="148" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="728" y="160" width="4" height="3" fill="#dde8ff" opacity="0.55" rx="0.5"/>
-<rect x="738" y="160" width="4" height="3" fill="#c8d8ff" opacity="0.6" rx="0.5"/>
-<rect x="750" y="160" width="4" height="3" fill="#dde8ff" opacity="0.52" rx="0.5"/>
-<rect x="762" y="160" width="4" height="3" fill="#c8d8ff" opacity="0.45" rx="0.5"/>
-<rect x="728" y="172" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="742" y="172" width="4" height="3" fill="#dde8ff" opacity="0.58" rx="0.5"/>
-<rect x="756" y="172" width="4" height="3" fill="#c8d8ff" opacity="0.48" rx="0.5"/>
-<rect x="728" y="184" width="4" height="3" fill="#dde8ff" opacity="0.52" rx="0.5"/>
-<rect x="740" y="184" width="4" height="3" fill="#fde68a" opacity="0.28" rx="0.5"/>
-<rect x="752" y="184" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="728" y="196" width="4" height="3" fill="#c8d8ff" opacity="0.48" rx="0.5"/>
-<rect x="742" y="196" width="4" height="3" fill="#dde8ff" opacity="0.55" rx="0.5"/>
-<rect x="754" y="196" width="4" height="3" fill="#c8d8ff" opacity="0.44" rx="0.5"/>
-<rect x="728" y="210" width="4" height="3" fill="#dde8ff" opacity="0.5" rx="0.5"/>
-<rect x="740" y="210" width="4" height="3" fill="#c8d8ff" opacity="0.52" rx="0.5"/>
-<rect x="752" y="210" width="4" height="3" fill="#fde68a" opacity="0.22" rx="0.5"/>
-<rect x="764" y="210" width="4" height="3" fill="#dde8ff" opacity="0.42" rx="0.5"/>
-
-<!-- Bay Adelaide / right towers -->
-<rect x="790" y="172" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="800" y="172" width="4" height="3" fill="#b8c8f0" opacity="0.45" rx="0.5"/>
-<rect x="812" y="172" width="4" height="3" fill="#c8d8ff" opacity="0.52" rx="0.5"/>
-<rect x="822" y="172" width="4" height="3" fill="#b8c8f0" opacity="0.4" rx="0.5"/>
-<rect x="792" y="184" width="4" height="3" fill="#b8c8f0" opacity="0.48" rx="0.5"/>
-<rect x="806" y="184" width="4" height="3" fill="#c8d8ff" opacity="0.55" rx="0.5"/>
-<rect x="818" y="184" width="4" height="3" fill="#b8c8f0" opacity="0.42" rx="0.5"/>
-<rect x="790" y="196" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="804" y="196" width="4" height="3" fill="#fde68a" opacity="0.25" rx="0.5"/>
-<rect x="816" y="196" width="4" height="3" fill="#c8d8ff" opacity="0.46" rx="0.5"/>
-<rect x="790" y="208" width="4" height="3" fill="#b8c8f0" opacity="0.44" rx="0.5"/>
-<rect x="804" y="208" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="816" y="208" width="4" height="3" fill="#b8c8f0" opacity="0.38" rx="0.5"/>
-
-<!-- Brookfield Place -->
-<rect x="894" y="192" width="4" height="3" fill="#c8d8ff" opacity="0.48" rx="0.5"/>
-<rect x="906" y="192" width="4" height="3" fill="#b8c8f0" opacity="0.42" rx="0.5"/>
-<rect x="918" y="192" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="894" y="204" width="4" height="3" fill="#b8c8f0" opacity="0.45" rx="0.5"/>
-<rect x="908" y="204" width="4" height="3" fill="#fde68a" opacity="0.22" rx="0.5"/>
-<rect x="920" y="204" width="4" height="3" fill="#c8d8ff" opacity="0.48" rx="0.5"/>
-<rect x="894" y="218" width="4" height="3" fill="#c8d8ff" opacity="0.44" rx="0.5"/>
-<rect x="906" y="218" width="4" height="3" fill="#b8c8f0" opacity="0.4" rx="0.5"/>
-<rect x="918" y="218" width="4" height="3" fill="#c8d8ff" opacity="0.46" rx="0.5"/>
-
-<!-- Commerce Court -->
-<rect x="980" y="206" width="4" height="3" fill="#b8c8f0" opacity="0.42" rx="0.5"/>
-<rect x="990" y="206" width="4" height="3" fill="#c8d8ff" opacity="0.48" rx="0.5"/>
-<rect x="1018" y="198" width="4" height="3" fill="#c8d8ff" opacity="0.5" rx="0.5"/>
-<rect x="1030" y="198" width="4" height="3" fill="#b8c8f0" opacity="0.44" rx="0.5"/>
-<rect x="1042" y="198" width="4" height="3" fill="#c8d8ff" opacity="0.48" rx="0.5"/>
-<rect x="1018" y="210" width="4" height="3" fill="#b8c8f0" opacity="0.4" rx="0.5"/>
-<rect x="1032" y="210" width="4" height="3" fill="#fde68a" opacity="0.2" rx="0.5"/>
-<rect x="1044" y="210" width="4" height="3" fill="#c8d8ff" opacity="0.44" rx="0.5"/>
-
-<!-- Mid-left cluster windows -->
-<rect x="372" y="224" width="4" height="3" fill="#b0bfe0" opacity="0.38" rx="0.5"/>
-<rect x="382" y="224" width="4" height="3" fill="#b0bfe0" opacity="0.32" rx="0.5"/>
-<rect x="394" y="224" width="4" height="3" fill="#b0bfe0" opacity="0.35" rx="0.5"/>
-<rect x="460" y="232" width="4" height="3" fill="#b0bfe0" opacity="0.36" rx="0.5"/>
-<rect x="472" y="232" width="4" height="3" fill="#b0bfe0" opacity="0.3" rx="0.5"/>
-<rect x="460" y="244" width="4" height="3" fill="#b0bfe0" opacity="0.32" rx="0.5"/>
-<rect x="474" y="244" width="4" height="3" fill="#fde68a" opacity="0.18" rx="0.5"/>
-
-<!-- CN Tower pod detail lights -->
-<rect x="576" y="162" width="4" height="2" fill="#c8d8ff" opacity="0.7" rx="0.5"/>
-<rect x="584" y="162" width="4" height="2" fill="#c8d8ff" opacity="0.6" rx="0.5"/>
-<rect x="592" y="162" width="4" height="2" fill="#c8d8ff" opacity="0.65" rx="0.5"/>
-<rect x="600" y="162" width="4" height="2" fill="#c8d8ff" opacity="0.55" rx="0.5"/>
-<rect x="608" y="162" width="4" height="2" fill="#c8d8ff" opacity="0.6" rx="0.5"/>
-
-<!-- ═══════════════════════════════ GROUND LEVEL ══════════════════ -->
-<!-- Street level — slight lighter strip showing ground lights -->
-<rect x="0" y="326" width="1440" height="6" fill="#0c1638" opacity="0.9"/>
-<!-- Ground glow from streetlights -->
-<rect x="0" y="326" width="1440" height="3" fill="#1a2e62" opacity="0.4"/>
-
-<!-- ═══════════════════════════════ WATER / LAKE ONTARIO ══════════ -->
-<rect x="0" y="332" width="1440" height="88" fill="url(#water)"/>
-
-<!-- Water reflections of skyline — blurred vertical streaks -->
-<!-- CN Tower reflection (brightest) -->
-<rect x="591" y="335" width="8" height="60" fill="#1d3470" opacity="0.35"/>
-<rect x="593" y="335" width="4" height="80" fill="#253d82" opacity="0.25"/>
-<!-- Antenna tip reflection -->
-<rect x="594" y="333" width="2" height="30" fill="#3b82f6" opacity="0.18"/>
-
-<!-- Building reflections — wider, fainter -->
-<rect x="725" y="335" width="50" height="45" fill="#1a2d62" opacity="0.22"/>
-<rect x="655" y="335" width="55" height="40" fill="#182a5e" opacity="0.2"/>
-<rect x="500" y="335" width="50" height="35" fill="#16285a" opacity="0.18"/>
-<rect x="786" y="335" width="48" height="38" fill="#1a2d62" opacity="0.2"/>
-<rect x="890" y="335" width="40" height="32" fill="#16285a" opacity="0.16"/>
-<rect x="1014" y="335" width="42" height="30" fill="#16285a" opacity="0.15"/>
-
-<!-- Ripple lines on water -->
-<path d="M100,355 Q200,352 300,355 Q400,358 500,355" stroke="#1e3870" stroke-width="0.5" fill="none" opacity="0.4"/>
-<path d="M150,368 Q300,364 450,368 Q600,372 750,368" stroke="#1e3870" stroke-width="0.5" fill="none" opacity="0.35"/>
-<path d="M600,355 Q720,352 840,355 Q960,358 1080,355" stroke="#1e3870" stroke-width="0.5" fill="none" opacity="0.4"/>
-<path d="M700,372 Q850,368 1000,372 Q1150,376 1300,372" stroke="#1e3870" stroke-width="0.5" fill="none" opacity="0.3"/>
-<path d="M200,380 Q400,376 600,380 Q800,384 1000,380" stroke="#1a3268" stroke-width="0.4" fill="none" opacity="0.25"/>
-
-<!-- Water edge / shore line -->
-<rect x="0" y="330" width="1440" height="4" fill="#0e1a44" opacity="0.8"/>
-
-<!-- Bottom fade to dark -->
-<rect x="0" y="380" width="1440" height="40" fill="#060d24" opacity="0.7"/>
+      <!-- Horizon reflection glow on waterfront -->
+      <rect x="0" y="310" width="1440" height="10" fill="rgba(15,30,80,0.6)"/>
     </svg>
   </div>
 
