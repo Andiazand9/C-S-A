@@ -13,378 +13,182 @@
 
 /* ── COMPETITION COLOR SYSTEM ── */
 :root {
-  --c-entrep:  #f97316;
-  --c-biz:     #a855f7;
-  --c-english: #10b981;
-  --c-science: #06b6d4;
-  --c-math:    #f43f5e;
-  --c-more:    #eab308;
+  --c-entrep:   #f97316;
+  --c-biz:      #a855f7;
+  --c-english:  #10b981;
+  --c-science:  #06b6d4;
+  --c-math:     #f43f5e;
+  --c-more:     #eab308;
+  --c-outreach: #3b82f6;
 }
 
 /* ── HERO ── */
 .hero-title em { color: var(--blue-light); }
 
-/* Richer sky: deep navy to midnight blue with faint dusk tint */
-.hero-section {
-  background: linear-gradient(
-    180deg,
-    #04060f 0%,
-    #060b22 30%,
-    #081130 55%,
-    #0a1540 75%,
-    #0d1a4a 100%
-  ) !important;
-}
-
-/* Toronto skyline anchored to hero bottom */
-.hero-skyline {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  width: 100%;
-  pointer-events: none;
-  z-index: 1;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, black 45%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, black 45%);
-}
-.hero-skyline svg { display:block; width:100%; height:auto; min-height:220px; }
-
-/* Layer order inside hero */
-.hero-canvas { z-index: 2 !important; }
-.hero-inner  { z-index: 3 !important; }
-
 /* ── PHOTO SLIDER ── */
-.photo-slider {
-  position: relative;
-  height: 520px;
-  overflow: hidden;
-  background: #04060f;
-}
-.slider-track {
-  display: flex;
-  height: 100%;
-  transition: transform .7s cubic-bezier(.77,0,.18,1);
-  will-change: transform;
-}
-.slide {
-  min-width: 100%;
-  height: 100%;
-  position: relative;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: brightness(.6);
-  transition: transform 8s ease;
-}
-.slider-track .slide.active img {
-  transform: scale(1.04);
-}
-.slide-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(7,9,26,.85) 0%, rgba(7,9,26,.3) 55%, transparent 100%);
-  display: flex;
-  align-items: center;
-  padding: 0 6%;
-}
-.slide-content {
-  max-width: 520px;
-}
-.slide-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  padding: 5px 14px;
-  border-radius: 3px;
-  margin-bottom: 1.1rem;
-  border: 1px solid;
-}
-.slide-content h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(1.7rem, 3.5vw, 2.6rem);
-  line-height: 1.15;
-  color: #fff;
-  margin-bottom: .7rem;
-  letter-spacing: -.02em;
-}
-.slide-content p {
-  font-size: .93rem;
-  color: rgba(255,255,255,.75);
-  line-height: 1.65;
-  font-weight: 300;
-  margin-bottom: 1.4rem;
-}
-.slide-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 22px;
-  border-radius: 5px;
-  font-size: .82rem;
-  font-weight: 700;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: var(--slide-color, var(--blue));
-  color: #fff;
-  transition: opacity .2s, transform .15s;
-}
-.slide-cta:hover { opacity: .85; transform: translateY(-1px); }
+.photo-slider { position:relative; height:520px; overflow:hidden; background:#04060f; }
+.slider-track { display:flex; height:100%; transition:transform .7s cubic-bezier(.77,0,.18,1); will-change:transform; }
+.slide { min-width:100%; height:100%; position:relative; flex-shrink:0; overflow:hidden; }
+.slide img { width:100%; height:100%; object-fit:cover; display:block; filter:brightness(.6); transition:transform 8s ease; }
+.slider-track .slide.active img { transform:scale(1.04); }
+.slide-overlay { position:absolute; inset:0; background:linear-gradient(to right,rgba(7,9,26,.85) 0%,rgba(7,9,26,.3) 55%,transparent 100%); display:flex; align-items:center; padding:0 6%; }
+.slide-content { max-width:520px; }
+.slide-tag { display:inline-flex; align-items:center; gap:7px; font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:5px 14px; border-radius:3px; margin-bottom:1.1rem; border:1px solid; }
+.slide-content h2 { font-family:var(--font-serif); font-size:clamp(1.7rem,3.5vw,2.6rem); line-height:1.15; color:#fff; margin-bottom:.7rem; letter-spacing:-.02em; }
+.slide-content p { font-size:.93rem; color:rgba(255,255,255,.75); line-height:1.65; font-weight:300; margin-bottom:1.4rem; }
+.slide-cta { display:inline-flex; align-items:center; gap:8px; padding:10px 22px; border-radius:5px; font-size:.82rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; text-decoration:none; background:var(--slide-color,var(--blue)); color:#fff; transition:opacity .2s,transform .15s; }
+.slide-cta:hover { opacity:.85; transform:translateY(-1px); }
+.slider-arrows { position:absolute; bottom:28px; right:6%; display:flex; gap:10px; z-index:10; }
+.slider-arrow { width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); color:#fff; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; backdrop-filter:blur(8px); }
+.slider-arrow:hover { background:rgba(255,255,255,.2); }
+.slider-dots { position:absolute; bottom:36px; left:6%; display:flex; gap:8px; z-index:10; }
+.slider-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.3); cursor:pointer; transition:background .25s,transform .25s; border:none; padding:0; }
+.slider-dot.active { background:#fff; transform:scale(1.4); }
+.slider-progress { position:absolute; bottom:0; left:0; height:3px; background:var(--blue-light); width:0%; transition:width .1s linear; z-index:10; }
 
-/* Slider nav */
-.slider-arrows {
-  position: absolute;
-  bottom: 28px;
-  right: 6%;
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-.slider-arrow {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.1);
-  border: 1px solid rgba(255,255,255,.25);
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background .2s;
-  backdrop-filter: blur(8px);
-}
-.slider-arrow:hover { background: rgba(255,255,255,.2); }
+/* ── STATS ── */
+.stats-strip { display:grid; grid-template-columns:repeat(4,1fr); background:var(--bg2); border-bottom:1px solid var(--border); }
+.stat-cell { padding:36px 24px; text-align:center; border-right:1px solid var(--border); transition:background .2s; }
+.stat-cell:last-child { border-right:none; }
+.stat-cell:hover { background:var(--bg3); }
+.stat-num-big { font-family:var(--font-serif); font-size:clamp(2.4rem,4vw,3.2rem); color:var(--white); line-height:1; margin-bottom:.4rem; }
+.stat-num-big .accent { color:var(--blue-light); }
+.stat-label-sm { font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--grey2); }
 
-.slider-dots {
-  position: absolute;
-  bottom: 36px;
-  left: 6%;
-  display: flex;
-  gap: 8px;
-  z-index: 10;
-}
-.slider-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.3);
-  cursor: pointer;
-  transition: background .25s, transform .25s;
-  border: none;
-  padding: 0;
-}
-.slider-dot.active {
-  background: #fff;
-  transform: scale(1.4);
-}
+/* ── UPCOMING EVENTS SECTION ── */
+.upcoming-section { background:var(--bg2); border-bottom:1px solid var(--border); padding:96px 6%; }
 
-/* Progress bar */
-.slider-progress {
-  position: absolute;
-  bottom: 0; left: 0;
-  height: 3px;
-  background: var(--blue-light);
-  width: 0%;
-  transition: width .1s linear;
-  z-index: 10;
-}
-
-/* ── SECTION COMMONS ── */
-.section-label { font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-light);margin-bottom:.8rem }
-.section-title { font-family:var(--font-serif);font-size:clamp(2rem,4vw,2.9rem);line-height:1.18;letter-spacing:-.02em;color:var(--white);margin-bottom:1rem }
-.section-sub { color:var(--grey);font-size:1.05rem;max-width:560px;font-weight:300 }
-
-/* ── STATS STRIP ── */
-.stats-strip {
+.upcoming-grid {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-}
-.stat-cell {
-  padding: 36px 24px;
-  text-align: center;
-  border-right: 1px solid var(--border);
-  transition: background .2s;
-}
-.stat-cell:last-child { border-right: none; }
-.stat-cell:hover { background: var(--bg3); }
-.stat-num-big {
-  font-family: var(--font-serif);
-  font-size: clamp(2.4rem,4vw,3.2rem);
-  color: var(--white); line-height:1; margin-bottom:.4rem;
-}
-.stat-num-big .accent { color:var(--blue-light) }
-.stat-label-sm {
-  font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey2);
-}
-
-/* ── COLOR-CODED COMPETITION CARDS ── */
-.comps-section { background: var(--bg2); border-bottom: 1px solid var(--border); }
-
-.comps-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-.comps-header-right a {
-  font-size:.85rem;font-weight:600;color:var(--blue-light);text-decoration:none;
-  display:inline-flex;align-items:center;gap:6px;
-  transition:opacity .2s;
-}
-.comps-header-right a:hover{opacity:.7}
-
-.comps-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-}
-
-.comp-card {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 0;
-  overflow: hidden;
-  transition: transform .3s, box-shadow .3s, border-color .3s;
-  cursor: default;
-  display: flex;
-  flex-direction: column;
-}
-.comp-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 48px rgba(0,0,0,.4);
-  border-color: var(--card-color);
-}
-.comp-card-top {
-  height: 5px;
-  background: var(--card-color);
-  flex-shrink: 0;
-}
-.comp-card-body {
-  padding: 28px 26px 24px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.comp-card-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap:10px;
-  margin-bottom: 1rem;
-}
-.comp-card-icon-wrap {
-  width: 46px; height: 46px;
-  border-radius: 10px;
-  display: flex; align-items:center; justify-content:center;
-  font-size: 1.3rem;
-  flex-shrink: 0;
-  background: color-mix(in srgb, var(--card-color) 14%, transparent);
-  border: 1px solid color-mix(in srgb, var(--card-color) 28%, transparent);
-}
-.comp-card-badge {
-  font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:3px 9px;border-radius:3px;flex-shrink:0;margin-top:4px;
-}
-.badge-open { background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:#34d399 }
-.badge-soon { background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:#fbbf24 }
-.badge-future { background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.18);color:#94a3b8 }
-
-.comp-card h3 {
-  font-size:1.02rem;font-weight:700;color:var(--white);margin-bottom:.45rem;letter-spacing:.005em;
-}
-.comp-card p {
-  font-size:.86rem;color:var(--grey);line-height:1.65;flex:1;
-}
-.comp-card-footer {
-  display:flex;align-items:center;justify-content:space-between;
-  margin-top:1.4rem;padding-top:1.1rem;
-  border-top:1px solid var(--border);
-}
-.comp-card-num {
-  font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color: var(--card-color); opacity:.7;
-}
-.comp-card-link {
-  font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--card-color);text-decoration:none;
-  display:inline-flex;align-items:center;gap:4px;
-  transition:opacity .2s;
-}
-.comp-card-link:hover{opacity:.7}
-
-/* Card color assignments */
-.card-entrep  { --card-color: var(--c-entrep); }
-.card-biz     { --card-color: var(--c-biz); }
-.card-english { --card-color: var(--c-english); }
-.card-science { --card-color: var(--c-science); }
-.card-math    { --card-color: var(--c-math); }
-.card-more    { --card-color: var(--c-more); }
-
-/* ── SPLIT CTA BANNER ── */
-.cta-banner {
-  display: grid;
-  grid-template-columns: 1fr 1px 1fr;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  margin-top: 3.5rem;
-}
-.cta-divider { background: var(--border); }
-.cta-half {
-  padding: 40px 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-.cta-half h3 {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  color: var(--white);
-  line-height: 1.2;
-}
-.cta-half p { font-size:.9rem;color:var(--grey);font-weight:300;line-height:1.7;margin:0; }
-
-/* ── WHY CSA ── */
-.why-section { background: var(--bg); }
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  background: var(--border);
   margin-top: 3rem;
 }
-.why-card {
-  background: var(--bg2);
-  padding: 32px 28px;
-  position: relative;
-  transition: background .2s;
+
+/* Featured (outreach) spans full width on its row */
+.upcoming-card-featured {
+  grid-column: 1 / -1;
 }
-.why-card:hover { background: var(--bg3); }
-.why-card::before {
-  content: '';
-  position: absolute;
-  top:0;left:0;right:0;height:3px;
-  background: var(--card-accent);
-  opacity:.8;
+
+.upcoming-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s, border-color .3s;
+  display: flex;
+  flex-direction: column;
 }
-.why-card .why-icon { font-size:1.5rem;margin-bottom:.75rem; }
-.why-card h3 { font-size:.98rem;font-weight:700;color:var(--white);margin-bottom:.45rem; }
-.why-card p  { font-size:.86rem;color:var(--grey);line-height:1.65; }
+.upcoming-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,.4);
+  border-color: var(--card-color, var(--blue));
+}
+.upcoming-card-bar {
+  height: 4px;
+  background: var(--card-color, var(--blue));
+}
+
+/* Featured card layout — horizontal */
+.upcoming-card-featured .upcoming-card-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 32px 36px;
+}
+.upcoming-card-inner { padding: 26px 24px; display: flex; flex-direction: column; flex: 1; }
+
+.upcoming-event-type {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 3px 11px; border-radius: 3px;
+  background: color-mix(in srgb, var(--card-color, var(--blue)) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--card-color, var(--blue)) 28%, transparent);
+  color: var(--card-color, var(--blue-light));
+  margin-bottom: .9rem; width: fit-content;
+}
+.upcoming-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--card-color, var(--blue));
+}
+
+.upcoming-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: .5rem; }
+.upcoming-card-featured h3 { font-size: 1.4rem; font-family: var(--font-serif); }
+.upcoming-card p { font-size: .87rem; color: var(--grey); line-height: 1.65; flex: 1; }
+.upcoming-card-featured p { font-size: .95rem; max-width: 560px; }
+
+.upcoming-meta {
+  display: flex; gap: 16px; margin-top: 1.2rem; flex-wrap: wrap;
+}
+.upcoming-meta-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: .78rem; color: var(--grey2); font-weight: 500;
+}
+.upcoming-meta-item svg { width: 13px; height: 13px; fill: var(--grey2); flex-shrink: 0; }
+
+.upcoming-cta-col {
+  display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;
+}
+.upcoming-card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border);
+}
+.upcoming-badge {
+  font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 3px;
+}
+.badge-live    { background: rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.3); color:#34d399; }
+.badge-open    { background: rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.3); color:#34d399; }
+.badge-soon    { background: rgba(251,191,36,.1);  border:1px solid rgba(251,191,36,.25); color:#fbbf24; }
+.badge-future  { background: rgba(148,163,184,.08); border:1px solid rgba(148,163,184,.18); color:#94a3b8; }
+.badge-new     { background: rgba(59,130,246,.15); border:1px solid rgba(59,130,246,.35); color:#93c5fd; }
+
+.upcoming-link {
+  font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--card-color, var(--blue-light)); text-decoration: none;
+  transition: opacity .2s;
+}
+.upcoming-link:hover { opacity: .7; }
+
+.btn-event-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 11px 28px; border-radius: 7px;
+  font-size: .86rem; font-weight: 700; letter-spacing: .03em;
+  background: var(--card-color, var(--blue)); color: #fff; text-decoration: none;
+  transition: opacity .2s, transform .15s; white-space: nowrap;
+}
+.btn-event-primary:hover { opacity: .85; transform: translateY(-1px); }
+.btn-event-ghost {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 11px 24px; border-radius: 7px;
+  font-size: .86rem; font-weight: 700;
+  background: var(--bg2); border: 1px solid var(--border); color: var(--grey);
+  text-decoration: none; transition: border-color .2s, color .2s; white-space: nowrap;
+}
+.btn-event-ghost:hover { border-color: var(--border2); color: var(--white); }
+
+/* ── SECTION COMMONS ── */
+.section-label { font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blue-light); margin-bottom:.8rem; }
+.section-title { font-family:var(--font-serif); font-size:clamp(2rem,4vw,2.9rem); line-height:1.18; letter-spacing:-.02em; color:var(--white); margin-bottom:1rem; }
+.section-sub   { color:var(--grey); font-size:1.05rem; max-width:560px; font-weight:300; }
+
+/* ── WHY CSA ── */
+.why-section { background:var(--bg); }
+.why-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:0; border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--border); margin-top:3rem; }
+.why-card { background:var(--bg2); padding:32px 28px; position:relative; transition:background .2s; }
+.why-card:hover { background:var(--bg3); }
+.why-card::before { content:''; position:absolute; top:0;left:0;right:0;height:3px; background:var(--card-accent); opacity:.8; }
+.why-card .why-icon { font-size:1.5rem; margin-bottom:.75rem; }
+.why-card h3 { font-size:.98rem; font-weight:700; color:var(--white); margin-bottom:.45rem; }
+.why-card p  { font-size:.86rem; color:var(--grey); line-height:1.65; }
+
+/* ── CTA BANNER ── */
+.cta-banner { display:grid; grid-template-columns:1fr 1px 1fr; background:var(--bg3); border:1px solid var(--border); border-radius:16px; overflow:hidden; margin-top:3.5rem; }
+.cta-divider { background:var(--border); }
+.cta-half { padding:40px 36px; display:flex; flex-direction:column; gap:1.25rem; }
+.cta-half h3 { font-family:var(--font-serif); font-size:1.5rem; color:var(--white); line-height:1.2; }
+.cta-half p { font-size:.9rem; color:var(--grey); font-weight:300; line-height:1.7; margin:0; }
 
 /* ── FOOTER ── */
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 36px}
@@ -404,16 +208,20 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .comps-grid{grid-template-columns:repeat(2,1fr)}
   .stats-strip{grid-template-columns:repeat(2,1fr)}
+  .upcoming-grid{grid-template-columns:repeat(2,1fr)}
+  .upcoming-card-featured{grid-column:1 / -1}
+  .upcoming-card-featured .upcoming-card-inner{grid-template-columns:1fr;gap:1.5rem}
+  .upcoming-cta-col{flex-direction:row}
   .cta-banner{grid-template-columns:1fr;grid-template-rows:1fr 1px 1fr}
   .cta-divider{height:1px;width:auto}
 }
 @media(max-width:700px){
-  .comps-grid{grid-template-columns:1fr}
+  .upcoming-grid{grid-template-columns:1fr}
   .stats-strip{grid-template-columns:repeat(2,1fr)}
   .photo-slider{height:380px}
   .cta-half{padding:28px 24px}
+  .upcoming-card-featured .upcoming-card-inner{padding:24px 22px}
 }
 @media(max-width:480px){
   .photo-slider{height:320px}
@@ -442,7 +250,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
     <li><a href="index.html" class="active">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="competitions.html">Competitions</a></li>
-    <li><a href="submit.html">Submit Work</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="competitions.html#register" class="btn-primary" style="padding:8px 20px;font-size:.88rem;border-radius:6px">Register</a></li>
   </ul>
@@ -451,146 +258,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
 <!-- ── HERO ── -->
 <section id="home" class="hero-section">
   <canvas class="hero-canvas" id="heroCanvas"></canvas>
-
-  <!-- Toronto Skyline SVG Silhouette -->
-  <div class="hero-skyline" aria-hidden="true">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(59,130,246,0)" />
-          <stop offset="100%" stop-color="rgba(7,9,26,0.7)" />
-        </linearGradient>
-        <!-- CN Tower glow -->
-        <radialGradient id="cnGlow" cx="50%" cy="0%" r="60%">
-          <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.18"/>
-          <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-
-      <!-- Sky atmosphere glow behind CN Tower -->
-      <ellipse cx="720" cy="60" rx="260" ry="180" fill="url(#cnGlow)"/>
-
-      <!-- TORONTO SKYLINE — right to left, realistic silhouette -->
-      <!-- Far background buildings (lightest) -->
-      <rect x="0"   y="210" width="40"  height="110" fill="rgba(15,20,60,0.55)" rx="1"/>
-      <rect x="38"  y="225" width="30"  height="95"  fill="rgba(15,20,60,0.5)"  rx="1"/>
-      <rect x="66"  y="200" width="50"  height="120" fill="rgba(15,20,60,0.55)" rx="1"/>
-      <rect x="114" y="215" width="35"  height="105" fill="rgba(15,20,60,0.5)"  rx="1"/>
-      <rect x="147" y="195" width="55"  height="125" fill="rgba(15,20,60,0.55)" rx="1"/>
-
-      <!-- Midground buildings left cluster -->
-      <rect x="200" y="185" width="48"  height="135" fill="rgba(12,16,50,0.65)" rx="1"/>
-      <rect x="246" y="195" width="32"  height="125" fill="rgba(12,16,50,0.6)"  rx="1"/>
-      <rect x="276" y="170" width="60"  height="150" fill="rgba(12,16,50,0.7)"  rx="1"/>
-      <!-- Small antenna on tall building -->
-      <rect x="302" y="155" width="4"   height="20"  fill="rgba(12,16,50,0.7)"/>
-      <rect x="334" y="190" width="42"  height="130" fill="rgba(12,16,50,0.65)" rx="1"/>
-      <rect x="374" y="175" width="55"  height="145" fill="rgba(12,16,50,0.7)"  rx="1"/>
-      <rect x="427" y="200" width="38"  height="120" fill="rgba(12,16,50,0.6)"  rx="1"/>
-      <rect x="463" y="165" width="68"  height="155" fill="rgba(12,16,50,0.72)" rx="1"/>
-      <!-- Antenna -->
-      <rect x="494" y="150" width="5"   height="18"  fill="rgba(12,16,50,0.72)"/>
-
-      <!-- Scotia Plaza / tall office block left of CN -->
-      <rect x="528" y="140" width="58"  height="180" fill="rgba(10,14,46,0.78)" rx="1"/>
-      <rect x="538" y="132" width="38"  height="12"  fill="rgba(10,14,46,0.78)" rx="1"/>
-      <rect x="584" y="165" width="44"  height="155" fill="rgba(10,14,46,0.72)" rx="1"/>
-      <rect x="626" y="150" width="52"  height="170" fill="rgba(10,14,46,0.78)" rx="1"/>
-      <!-- small top detail -->
-      <rect x="645" y="142" width="14"  height="10"  fill="rgba(10,14,46,0.78)"/>
-
-      <!-- ── CN TOWER ── -->
-      <!-- Tower base / podium -->
-      <rect x="696" y="230" width="46"  height="90"  fill="rgba(8,12,38,0.92)" rx="1"/>
-      <!-- Tower main shaft — wide at base tapering -->
-      <polygon points="706,230 730,230 726,130 718,130" fill="rgba(8,12,38,0.92)"/>
-      <!-- Tower neck -->
-      <rect x="716" y="90"  width="12"  height="44"  fill="rgba(8,12,38,0.95)"/>
-      <!-- Observation pod (SkyPod) -->
-      <ellipse cx="722" cy="88" rx="18" ry="7"       fill="rgba(8,12,38,0.95)"/>
-      <!-- Upper needle -->
-      <rect x="720" y="30"  width="4"   height="62"  fill="rgba(8,12,38,0.95)"/>
-      <!-- Needle tip light -->
-      <circle cx="722" cy="28" r="2.5" fill="#3b82f6" opacity="0.9"/>
-      <!-- Subtle glow on needle tip -->
-      <circle cx="722" cy="28" r="6"   fill="#3b82f6" opacity="0.15"/>
-
-      <!-- Buildings right of CN Tower -->
-      <rect x="742" y="160" width="50"  height="160" fill="rgba(10,14,46,0.75)" rx="1"/>
-      <rect x="750" y="152" width="34"  height="10"  fill="rgba(10,14,46,0.75)"/>
-      <rect x="790" y="175" width="44"  height="145" fill="rgba(10,14,46,0.7)"  rx="1"/>
-      <rect x="832" y="155" width="62"  height="165" fill="rgba(10,14,46,0.78)" rx="1"/>
-      <!-- Antenna -->
-      <rect x="860" y="146" width="5"   height="12"  fill="rgba(10,14,46,0.78)"/>
-      <rect x="892" y="170" width="48"  height="150" fill="rgba(10,14,46,0.72)" rx="1"/>
-
-      <!-- Right cluster -->
-      <rect x="938" y="185" width="55"  height="135" fill="rgba(12,16,50,0.68)" rx="1"/>
-      <rect x="991" y="195" width="40"  height="125" fill="rgba(12,16,50,0.62)" rx="1"/>
-      <rect x="1029"y="175" width="62"  height="145" fill="rgba(12,16,50,0.7)"  rx="1"/>
-      <rect x="1047"y="165" width="18"  height="12"  fill="rgba(12,16,50,0.7)"/>
-      <rect x="1089"y="190" width="50"  height="130" fill="rgba(12,16,50,0.65)" rx="1"/>
-      <rect x="1137"y="200" width="38"  height="120" fill="rgba(12,16,50,0.6)"  rx="1"/>
-      <rect x="1173"y="185" width="55"  height="135" fill="rgba(12,16,50,0.65)" rx="1"/>
-
-      <!-- Far right buildings -->
-      <rect x="1226"y="205" width="44"  height="115" fill="rgba(15,20,60,0.55)" rx="1"/>
-      <rect x="1268"y="215" width="36"  height="105" fill="rgba(15,20,60,0.5)"  rx="1"/>
-      <rect x="1302"y="200" width="52"  height="120" fill="rgba(15,20,60,0.55)" rx="1"/>
-      <rect x="1352"y="210" width="40"  height="110" fill="rgba(15,20,60,0.5)"  rx="1"/>
-      <rect x="1390"y="220" width="50"  height="100" fill="rgba(15,20,60,0.48)" rx="1"/>
-
-      <!-- Ground / waterfront base -->
-      <rect x="0" y="316" width="1440" height="8" fill="rgba(7,9,26,0.9)"/>
-
-      <!-- Overlay gradient fading to hero bg at bottom -->
-      <rect x="0" y="0" width="1440" height="320" fill="url(#skyGrad)"/>
-
-      <!-- Window lights scattered across buildings -->
-      <!-- Left cluster windows -->
-      <rect x="208" y="195" width="5" height="4" fill="rgba(180,200,255,0.35)" rx="1"/>
-      <rect x="220" y="205" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
-      <rect x="208" y="215" width="5" height="4" fill="rgba(180,200,255,0.4)"  rx="1"/>
-      <rect x="283" y="182" width="5" height="4" fill="rgba(180,200,255,0.35)" rx="1"/>
-      <rect x="295" y="195" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
-      <rect x="283" y="210" width="5" height="4" fill="rgba(180,200,255,0.38)" rx="1"/>
-      <rect x="345" y="200" width="5" height="4" fill="rgba(180,200,255,0.32)" rx="1"/>
-      <rect x="380" y="185" width="5" height="4" fill="rgba(180,200,255,0.36)" rx="1"/>
-      <rect x="392" y="200" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
-      <rect x="472" y="175" width="5" height="4" fill="rgba(180,200,255,0.38)" rx="1"/>
-      <rect x="484" y="188" width="5" height="4" fill="rgba(180,200,255,0.33)" rx="1"/>
-      <rect x="472" y="200" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
-      <!-- Scotia / tall left buildings -->
-      <rect x="535" y="150" width="5" height="4" fill="rgba(200,215,255,0.4)"  rx="1"/>
-      <rect x="548" y="165" width="5" height="4" fill="rgba(200,215,255,0.35)" rx="1"/>
-      <rect x="535" y="180" width="5" height="4" fill="rgba(200,215,255,0.38)" rx="1"/>
-      <rect x="548" y="195" width="5" height="4" fill="rgba(200,215,255,0.3)"  rx="1"/>
-      <rect x="635" y="160" width="5" height="4" fill="rgba(200,215,255,0.4)"  rx="1"/>
-      <rect x="648" y="175" width="5" height="4" fill="rgba(200,215,255,0.35)" rx="1"/>
-      <rect x="635" y="192" width="5" height="4" fill="rgba(200,215,255,0.38)" rx="1"/>
-      <!-- Right of CN Tower -->
-      <rect x="750" y="172" width="5" height="4" fill="rgba(180,200,255,0.36)" rx="1"/>
-      <rect x="762" y="186" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
-      <rect x="750" y="200" width="5" height="4" fill="rgba(180,200,255,0.38)" rx="1"/>
-      <rect x="840" y="165" width="5" height="4" fill="rgba(180,200,255,0.4)"  rx="1"/>
-      <rect x="855" y="180" width="5" height="4" fill="rgba(180,200,255,0.33)" rx="1"/>
-      <rect x="840" y="196" width="5" height="4" fill="rgba(180,200,255,0.36)" rx="1"/>
-      <rect x="900" y="180" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
-      <rect x="912" y="195" width="5" height="4" fill="rgba(180,200,255,0.35)" rx="1"/>
-      <!-- Right cluster -->
-      <rect x="946" y="195" width="5" height="4" fill="rgba(180,200,255,0.32)" rx="1"/>
-      <rect x="960" y="208" width="5" height="4" fill="rgba(180,200,255,0.28)" rx="1"/>
-      <rect x="1038"y="185" width="5" height="4" fill="rgba(180,200,255,0.35)" rx="1"/>
-      <rect x="1052"y="200" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
-      <rect x="1096"y="200" width="5" height="4" fill="rgba(180,200,255,0.32)" rx="1"/>
-      <rect x="1110"y="215" width="5" height="4" fill="rgba(180,200,255,0.28)" rx="1"/>
-      <rect x="1182"y="195" width="5" height="4" fill="rgba(180,200,255,0.3)"  rx="1"/>
-
-      <!-- Horizon reflection glow on waterfront -->
-      <rect x="0" y="310" width="1440" height="10" fill="rgba(15,30,80,0.6)"/>
-    </svg>
-  </div>
-
   <div class="hero-inner">
     <div class="hero-badge"><span class="hero-badge-dot"></span>Canadian Scholars Association</div>
     <h1 class="hero-title">Empowering Canada's<br/><em>Next Generation</em></h1>
@@ -607,7 +274,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
   <div class="slider-track" id="sliderTrack">
 
     <div class="slide active">
-      <img src="pic.png" alt="CSA Competition"/>
+      <img src="testimage.jpg" alt="CSA Competition"/>
       <div class="slide-overlay">
         <div class="slide-content">
           <div class="slide-tag" style="--slide-color:var(--c-entrep);background:rgba(249,115,22,.12);border-color:rgba(249,115,22,.35);color:#fb923c">
@@ -616,13 +283,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
           </div>
           <h2>Build the Business of Tomorrow</h2>
           <p>Pitch your ideas to real judges and compete alongside Canada's brightest student entrepreneurs.</p>
-          <a href="competitions.html#register" class="slide-cta" style="--slide-color:var(--c-entrep)">Register — $20</a>
+          <a href="competitions.html" class="slide-cta" style="--slide-color:var(--c-entrep)">Learn More</a>
         </div>
       </div>
     </div>
 
     <div class="slide">
-      <img src="pic.png" alt="CSA Business Competition"/>
+      <img src="testimage2.jpg" alt="CSA Business Competition"/>
       <div class="slide-overlay">
         <div class="slide-content">
           <div class="slide-tag" style="--slide-color:var(--c-biz);background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.35);color:#c084fc">
@@ -631,13 +298,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
           </div>
           <h2>Analyze. Strategize. Present.</h2>
           <p>Tackle real-world scenarios and sharpen the analytical thinking that top companies look for.</p>
-          <a href="competitions.html#register" class="slide-cta" style="--slide-color:var(--c-biz)">Register — $20</a>
+          <a href="competitions.html" class="slide-cta" style="--slide-color:var(--c-biz)">Learn More</a>
         </div>
       </div>
     </div>
 
     <div class="slide">
-      <img src="pic.png" alt="CSA English Competition"/>
+      <img src="testimage3.jpg" alt="CSA English Competition"/>
       <div class="slide-overlay">
         <div class="slide-content">
           <div class="slide-tag" style="--slide-color:var(--c-english);background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.35);color:#34d399">
@@ -646,13 +313,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
           </div>
           <h2>Your Voice. National Stage.</h2>
           <p>Essays, public speaking, and creative writing judged by professionals who care about craft.</p>
-          <a href="competitions.html#register" class="slide-cta" style="--slide-color:var(--c-english)">Register — $20</a>
+          <a href="competitions.html" class="slide-cta" style="--slide-color:var(--c-english)">Learn More</a>
         </div>
       </div>
     </div>
 
     <div class="slide">
-      <img src="pic.png" alt="CSA Science Showcase"/>
+      <img src="testimage4.jpg" alt="CSA Science Showcase"/>
       <div class="slide-overlay">
         <div class="slide-content">
           <div class="slide-tag" style="--slide-color:var(--c-science);background:rgba(6,182,212,.12);border-color:rgba(6,182,212,.35);color:#22d3ee">
@@ -667,7 +334,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
     </div>
 
     <div class="slide">
-      <img src="pic.png" alt="CSA Mathematics Challenge"/>
+      <img src="testimage5.jpg" alt="CSA Mathematics Challenge"/>
       <div class="slide-overlay">
         <div class="slide-content">
           <div class="slide-tag" style="--slide-color:var(--c-math);background:rgba(244,63,94,.12);border-color:rgba(244,63,94,.35);color:#fb7185">
@@ -683,7 +350,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
 
   </div>
 
-  <!-- Dots -->
   <div class="slider-dots" id="sliderDots">
     <button class="slider-dot active"></button>
     <button class="slider-dot"></button>
@@ -691,14 +357,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
     <button class="slider-dot"></button>
     <button class="slider-dot"></button>
   </div>
-
-  <!-- Arrows -->
   <div class="slider-arrows">
     <button class="slider-arrow" id="sliderPrev">&#8592;</button>
     <button class="slider-arrow" id="sliderNext">&#8594;</button>
   </div>
-
-  <!-- Progress bar -->
   <div class="slider-progress" id="sliderProgress"></div>
 </div>
 
@@ -722,176 +384,141 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
   </div>
 </div>
 
-<!-- ── COMPETITIONS ── -->
-<section class="comps-section" style="padding:96px 6%">
-  <div class="comps-header">
-    <div>
-      <div class="section-label">Events</div>
-      <h2 class="section-title" style="margin-bottom:.5rem">All Competitions</h2>
-      <p class="section-sub">Five disciplines. One platform. Open to every Canadian student.</p>
-    </div>
-    <div class="comps-header-right">
-      <a href="competitions.html">View all details &amp; register →</a>
-    </div>
-  </div>
+<!-- ── UPCOMING EVENTS ── -->
+<section class="upcoming-section">
+  <div class="section-label">What's On</div>
+  <h2 class="section-title">Upcoming &amp; Active</h2>
+  <p class="section-sub">Competitions open now, events launching soon, and things you don't want to miss.</p>
 
-  <div class="comps-grid">
+  <div class="upcoming-grid">
 
-    <div class="comp-card card-entrep">
-      <div class="comp-card-top"></div>
-      <div class="comp-card-body">
-        <div class="comp-card-header">
-          <div class="comp-card-icon-wrap">🚀</div>
-          <span class="comp-card-badge badge-open">● Open</span>
+    <!-- FEATURED: OUTREACH EVENT — spans full width -->
+    <div class="upcoming-card upcoming-card-featured" style="--card-color:var(--c-outreach)">
+      <div class="upcoming-card-bar"></div>
+      <div class="upcoming-card-inner">
+        <div>
+          <div class="upcoming-event-type">
+            <div class="upcoming-dot"></div>
+            Outreach Event · New
+          </div>
+          <h3>CSA Campus Outreach — Coming to Your School</h3>
+          <p>We're bringing CSA to campuses across Canada. Meet our team, learn about upcoming competitions, and connect with students from your region. Whether you're looking to compete, volunteer, or just find out what CSA is about — this is your chance.</p>
+          <div class="upcoming-meta">
+            <div class="upcoming-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Details announced soon
+            </div>
+            <div class="upcoming-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Across Canada
+            </div>
+            <span class="upcoming-badge badge-new">● Announcing Soon</span>
+          </div>
+        </div>
+        <div class="upcoming-cta-col">
+          <a href="https://www.instagram.com/csa.official2026" target="_blank" class="btn-event-primary">Follow for Updates</a>
+          <a href="contact.html" class="btn-event-ghost">Get Involved</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Open comps — 3 columns -->
+    <div class="upcoming-card" style="--card-color:var(--c-entrep)">
+      <div class="upcoming-card-bar"></div>
+      <div class="upcoming-card-inner">
+        <div class="upcoming-event-type">
+          <div class="upcoming-dot"></div>
+          Competition · Open
         </div>
         <h3>Entrepreneurship Challenge</h3>
         <p>Pitch your startup idea, build a business plan, and present to a panel of judges. Real mentorship, real stakes.</p>
-        <div class="comp-card-footer">
-          <span class="comp-card-num">Event 01</span>
-          <a href="competitions.html#register" class="comp-card-link">Register →</a>
+        <div class="upcoming-card-footer">
+          <span class="upcoming-badge badge-open">● Registering Now</span>
+          <a href="competitions.html#register" class="upcoming-link">Register →</a>
         </div>
       </div>
     </div>
 
-    <div class="comp-card card-biz">
-      <div class="comp-card-top"></div>
-      <div class="comp-card-body">
-        <div class="comp-card-header">
-          <div class="comp-card-icon-wrap">📊</div>
-          <span class="comp-card-badge badge-open">● Open</span>
+    <div class="upcoming-card" style="--card-color:var(--c-biz)">
+      <div class="upcoming-card-bar"></div>
+      <div class="upcoming-card-inner">
+        <div class="upcoming-event-type">
+          <div class="upcoming-dot"></div>
+          Competition · Open
         </div>
         <h3>Business Case Competition</h3>
         <p>Tackle real-world business scenarios with financial analysis and strategic thinking under competition conditions.</p>
-        <div class="comp-card-footer">
-          <span class="comp-card-num">Event 02</span>
-          <a href="competitions.html#register" class="comp-card-link">Register →</a>
+        <div class="upcoming-card-footer">
+          <span class="upcoming-badge badge-open">● Registering Now</span>
+          <a href="competitions.html#register" class="upcoming-link">Register →</a>
         </div>
       </div>
     </div>
 
-    <div class="comp-card card-english">
-      <div class="comp-card-top"></div>
-      <div class="comp-card-body">
-        <div class="comp-card-header">
-          <div class="comp-card-icon-wrap">✍️</div>
-          <span class="comp-card-badge badge-open">● Open</span>
+    <div class="upcoming-card" style="--card-color:var(--c-english)">
+      <div class="upcoming-card-bar"></div>
+      <div class="upcoming-card-inner">
+        <div class="upcoming-event-type">
+          <div class="upcoming-dot"></div>
+          Competition · Open
         </div>
         <h3>English Writing Competition</h3>
         <p>Essays, public speaking, and creative writing. Every voice and every style has a place in this event.</p>
-        <div class="comp-card-footer">
-          <span class="comp-card-num">Event 03</span>
-          <a href="competitions.html#register" class="comp-card-link">Register →</a>
+        <div class="upcoming-card-footer">
+          <span class="upcoming-badge badge-open">● Registering Now</span>
+          <a href="competitions.html#register" class="upcoming-link">Register →</a>
         </div>
       </div>
     </div>
 
-    <div class="comp-card card-science">
-      <div class="comp-card-top"></div>
-      <div class="comp-card-body">
-        <div class="comp-card-header">
-          <div class="comp-card-icon-wrap">🔬</div>
-          <span class="comp-card-badge badge-soon">Coming Soon</span>
+    <div class="upcoming-card" style="--card-color:var(--c-science)">
+      <div class="upcoming-card-bar"></div>
+      <div class="upcoming-card-inner">
+        <div class="upcoming-event-type">
+          <div class="upcoming-dot"></div>
+          Competition · Coming Soon
         </div>
         <h3>Science Showcase</h3>
-        <p>Research presentations and STEM problem-solving for students who want to push the boundaries of discovery.</p>
-        <div class="comp-card-footer">
-          <span class="comp-card-num">Event 04</span>
-          <a href="competitions.html" class="comp-card-link">Learn More →</a>
+        <p>Research presentations and STEM problem-solving. Opening for registration soon — follow us to be first in line.</p>
+        <div class="upcoming-card-footer">
+          <span class="upcoming-badge badge-soon">⏳ Coming Soon</span>
+          <a href="competitions.html" class="upcoming-link">Learn More →</a>
         </div>
       </div>
     </div>
 
-    <div class="comp-card card-math">
-      <div class="comp-card-top"></div>
-      <div class="comp-card-body">
-        <div class="comp-card-header">
-          <div class="comp-card-icon-wrap">🧮</div>
-          <span class="comp-card-badge badge-soon">Coming Soon</span>
+    <div class="upcoming-card" style="--card-color:var(--c-math)">
+      <div class="upcoming-card-bar"></div>
+      <div class="upcoming-card-inner">
+        <div class="upcoming-event-type">
+          <div class="upcoming-dot"></div>
+          Competition · Coming Soon
         </div>
         <h3>Mathematics Challenge</h3>
-        <p>Problem sets and speed rounds spanning algebra, statistics, and calculus. Every skill level is welcome.</p>
-        <div class="comp-card-footer">
-          <span class="comp-card-num">Event 05</span>
-          <a href="competitions.html" class="comp-card-link">Learn More →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="comp-card card-more">
-      <div class="comp-card-top"></div>
-      <div class="comp-card-body">
-        <div class="comp-card-header">
-          <div class="comp-card-icon-wrap">🌍</div>
-          <span class="comp-card-badge badge-future">Future</span>
-        </div>
-        <h3>More Disciplines</h3>
-        <p>New events added every semester. Follow us on Instagram to be the first to hear about what's next.</p>
-        <div class="comp-card-footer">
-          <span class="comp-card-num">Coming Up</span>
-          <a href="https://www.instagram.com/csa.official2026" target="_blank" class="comp-card-link">Follow Us →</a>
+        <p>Problem sets and speed rounds spanning algebra, statistics, and calculus. Every skill level welcome.</p>
+        <div class="upcoming-card-footer">
+          <span class="upcoming-badge badge-soon">⏳ Coming Soon</span>
+          <a href="competitions.html" class="upcoming-link">Learn More →</a>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- Split CTA -->
-  <div class="cta-banner">
-    <div class="cta-half">
-      <div>
-        <div class="section-label" style="margin-bottom:.5rem">Ready to compete?</div>
-        <h3>Three events open for registration right now.</h3>
-      </div>
-      <p>Only $20 per event. Fully online. Official certificate for every participant. Cash prizes for top performers.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="competitions.html#register" class="btn-primary" style="padding:12px 28px;font-size:.88rem">Register — $20</a>
-        <a href="competitions.html" class="btn-outline" style="padding:12px 28px;font-size:.88rem">See All Events</a>
-      </div>
-    </div>
-    <div class="cta-divider"></div>
-    <div class="cta-half">
-      <div>
-        <div class="section-label" style="margin-bottom:.5rem">Want to get involved?</div>
-        <h3>Join the team behind Canada's student competitions.</h3>
-      </div>
-      <p>We're looking for passionate students to help with events, marketing, judging, and more. Fully remote and flexible.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="contact.html" class="btn-primary" style="padding:12px 28px;font-size:.88rem;background:var(--bg2);border:1.5px solid var(--border2);color:var(--blue-light)">Apply to Join</a>
-        <a href="about.html" class="btn-outline" style="padding:12px 28px;font-size:.88rem">Learn More</a>
-      </div>
-    </div>
+  <!-- View all CTA -->
+  <div style="margin-top:2.5rem;text-align:center">
+    <a href="competitions.html" class="btn-outline" style="padding:12px 32px;font-size:.9rem">View All Events &amp; Details →</a>
   </div>
 </section>
 
-<!-- ── WHY CSA ── -->
-<section class="why-section" style="padding:96px 6%">
-  <div class="section-label">The CSA Difference</div>
-  <h2 class="section-title">Why Compete With Us?</h2>
-  <p class="section-sub">We're not just another competition. A platform built by students who understand what you actually need.</p>
-
-  <div class="why-grid">
-    <div class="why-card" style="--card-accent:var(--c-entrep)">
-      <div class="why-icon">🎯</div>
-      <h3>Accessible to Everyone</h3>
-      <p>Only $20 per event, fully online. A student in Halifax has the same shot as one in Vancouver.</p>
-    </div>
-    <div class="why-card" style="--card-accent:var(--c-biz)">
-      <div class="why-icon">🏆</div>
-      <h3>Real Rewards</h3>
-      <p>Cash prizes for top performers. Official certificates for every participant. Expert judge feedback on every entry.</p>
-    </div>
-    <div class="why-card" style="--card-accent:var(--c-english)">
-      <div class="why-icon">🤝</div>
-      <h3>100% Student-Led</h3>
-      <p>Every person at CSA is a student. We know what you need because we've been in your exact position.</p>
-    </div>
-    <div class="why-card" style="--card-accent:var(--c-science)">
-      <div class="why-icon">🇨🇦</div>
-      <h3>National Stage</h3>
-      <p>Compete against students from coast to coast. Your work is seen, scored, and celebrated nationally.</p>
-    </div>
-  </div>
-</section>
+    <!--Insta Section -->
+<behold-widget feed-id="SQQzHJujj7cVan26SlAJ"></behold-widget>
+<script>
+  (() => {
+    const d=document,s=d.createElement("script");s.type="module";
+    s.src="https://w.behold.so/widget.js";d.head.append(s);
+  })();
+</script>
 
 <!-- ── FOOTER ── -->
 <footer>
@@ -948,7 +575,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2025 Canadian Scholars Association. All rights reserved.</p>
+    <p>&copy; 2026 Canadian Scholars Association. All rights reserved.</p>
     <p>Made by students, for students. <span class="accent">🍁</span></p>
   </div>
 </footer>
@@ -980,7 +607,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
     if(track) track.style.transform = 'translateX(-' + (current * 100) + '%)';
     resetProgress();
   }
-
   function resetProgress() {
     clearInterval(prog);
     progVal = 0;
@@ -990,30 +616,26 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 6% 
       if(progBar) progBar.style.width = Math.min(progVal, 100) + '%';
     }, 100);
   }
-
   function startAuto() {
     clearInterval(timer);
     timer = setInterval(function(){ goTo(current + 1); }, DELAY);
   }
-
   if(slides.length) {
-    if(prevBtn) prevBtn.addEventListener('click', function(){ goTo(current - 1); startAuto(); });
-    if(nextBtn) nextBtn.addEventListener('click', function(){ goTo(current + 1); startAuto(); });
-    dots.forEach(function(d, i){ d.addEventListener('click', function(){ goTo(i); startAuto(); }); });
-    // Keyboard
+    if(prevBtn) prevBtn.addEventListener('click', function(){ goTo(current-1); startAuto(); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ goTo(current+1); startAuto(); });
+    dots.forEach(function(d,i){ d.addEventListener('click', function(){ goTo(i); startAuto(); }); });
     document.addEventListener('keydown', function(e){
       if(e.key==='ArrowLeft'){ goTo(current-1); startAuto(); }
       if(e.key==='ArrowRight'){ goTo(current+1); startAuto(); }
     });
-    // Touch swipe
     var startX = 0;
     var sliderEl = document.getElementById('photoSlider');
     if(sliderEl){
-      sliderEl.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+      sliderEl.addEventListener('touchstart', function(e){ startX=e.touches[0].clientX; },{passive:true});
       sliderEl.addEventListener('touchend', function(e){
-        var dx = e.changedTouches[0].clientX - startX;
-        if(Math.abs(dx) > 50){ dx < 0 ? goTo(current+1) : goTo(current-1); startAuto(); }
-      }, {passive:true});
+        var dx=e.changedTouches[0].clientX-startX;
+        if(Math.abs(dx)>50){ dx<0?goTo(current+1):goTo(current-1); startAuto(); }
+      },{passive:true});
     }
     startAuto();
     resetProgress();
